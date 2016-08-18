@@ -10,7 +10,8 @@ using System.IO;
 
 namespace DH.PaymentAllocationService
 {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerSession, Namespace = Constants.Namespace)]
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, InstanceContextMode = InstanceContextMode.PerSession,
+        Namespace = Constants.Namespace)]
     public class InRuleService : IInRuleService
     {
         public InRuleResponse PaymentAllocationRules(InRuleRequest request)
@@ -22,28 +23,35 @@ namespace DH.PaymentAllocationService
             {
                 if (Settings.Default.IsHardCoded)
                 {
-                    XmlSerializer reader = new XmlSerializer(typeof(InRuleResponse));
-                    using (StreamReader file = new StreamReader(Settings.Default.RuleAppDirectory + "InRuleResponse.xml"))
+                    XmlSerializer reader = new XmlSerializer(typeof (InRuleResponse));
+                    using (
+                        StreamReader file = new StreamReader(Settings.Default.RuleAppDirectory + "InRuleResponse.xml"))
                     {
-                        response = (InRuleResponse)reader.Deserialize(file);
+                        response = (InRuleResponse) reader.Deserialize(file);
                         file.Close();
                     }
                 }
                 else
                 {
-                    var ruleApp = new FileSystemRuleApplicationReference(Settings.Default.RuleAppDirectory + Settings.Default.RuleAppObject);
+                    var ruleApp =
+                        new FileSystemRuleApplicationReference(Settings.Default.RuleAppDirectory +
+                                                               Settings.Default.RuleAppObject);
                     using (var session = new RuleSession(ruleApp))
                     {
-                        var objectEntityState = Util.DeserializeFromXml<PaymentAllocationRoot>("<" + Settings.Default.TopEntityName + ">" + request.RuleDataXML + "</" + Settings.Default.TopEntityName + ">");
+                        var objectEntityState =
+                            Util.DeserializeFromXml<PaymentAllocationRoot>("<" + Settings.Default.TopEntityName + ">" +
+                                                                           request.RuleDataXML + "</" +
+                                                                           Settings.Default.TopEntityName + ">");
                         objectEntityState.RuleEvaluationDate = request.RuleInfo.RuleEvaluationDate;
                         var rootEntity = session.CreateEntity(Settings.Default.TopEntityName, objectEntityState);
-                    
+
                         if (Settings.Default.UseLog)
                             session.Settings.LogOptions = EngineLogOptions.Execution | EngineLogOptions.RuleTrace;
                         else
                             session.Settings.LogOptions = EngineLogOptions.None;
 
-                        RuleExecutionLog executionLog = rootEntity.ExecuteRuleSet(request.RuleInfo.RuleName, Settings.Default.PerformPreValidation, Settings.Default.PerformPostValidation);
+                        RuleExecutionLog executionLog = rootEntity.ExecuteRuleSet(request.RuleInfo.RuleName,
+                            Settings.Default.PerformPreValidation, Settings.Default.PerformPostValidation);
 
                         if (Settings.Default.UseLog)
                         {
@@ -64,7 +72,7 @@ namespace DH.PaymentAllocationService
 
                         response.RuleInfo = request.RuleInfo;
                         response.RuleInfo.ErrorDetails = objectEntityState.ErrorDetails;
-                        response.RuleInfo.Status = objectEntityState.ErrorDetails.Count > 0? "Failure": "Success";
+                        response.RuleInfo.Status = objectEntityState.ErrorDetails.Count > 0 ? "Failure" : "Success";
                         response.RuleResult = Util.GetRuleResultXml(objectEntityState.Payments);
                     }
                 }

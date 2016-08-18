@@ -9,34 +9,21 @@
     [DataContract]
     public class InRuleResponse
     {
-
         private RuleInfo _ruleInfo;
         private string _ruleResult;
 
         [DataMember]
         public virtual RuleInfo RuleInfo
         {
-            get
-            {
-                return this._ruleInfo;
-            }
-            set
-            {
-                this._ruleInfo = value;
-            }
+            get { return this._ruleInfo; }
+            set { this._ruleInfo = value; }
         }
 
         [DataMember]
         public virtual string RuleResult
         {
-            get
-            {
-                return this._ruleResult;
-            }
-            set
-            {
-                this._ruleResult = value;
-            }
+            get { return this._ruleResult; }
+            set { this._ruleResult = value; }
         }
     }
 }
