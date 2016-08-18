@@ -50,6 +50,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Assemblies\inrule.common.dll</HintPath>
     </Reference>
+    <Reference Include="InRule.Repository">
+      <HintPath>..\Assemblies\InRule.Repository.dll</HintPath>
+    </Reference>
     <Reference Include="InRule.Repository.XmlSerializers">
       <HintPath>..\Assemblies\InRule.Repository.XmlSerializers.dll</HintPath>
     </Reference>
