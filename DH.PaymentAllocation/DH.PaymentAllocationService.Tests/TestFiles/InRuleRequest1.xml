@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InRuleRequest>
+  <RuleInfo>
+    <RuleName>UndirectedPaymentAllocation</RuleName>
+    <Caller>Cavion</Caller>
+    <RuleEvaluationDate>3/32015</RuleEvaluationDate>
+    <!-- Defaults to empty, i.e. current date -->
+    <Filler></Filler>
+    <!-- Reserved for future use-->
+  </RuleInfo>
+  <RuleDataXML>
+    a
+  </RuleDataXML>
+
+</InRuleRequest>

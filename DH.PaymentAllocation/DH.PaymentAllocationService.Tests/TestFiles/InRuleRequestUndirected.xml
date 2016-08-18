@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InRuleRequest>
+  <RuleInfo>
+    <RuleName>UndirectedPaymentAllocation</RuleName>
+    <Caller>Cavion</Caller>
+    <RuleEvaluationDate>3/3/2015</RuleEvaluationDate>
+    <Filler></Filler>
+  </RuleInfo>
+  <RuleDataXML>
+    <![CDATA[     
+    <PaymentAmount>1500.00</PaymentAmount>  
+    <LoanSet>
+      <Loan>    
+        <LoanNumber>1234567890</LoanNumber>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>300.00</ScheduledPaymentAmount>
+        <AccruedInterest>130.00</AccruedInterest>
+        <PrincipalBalance>2000.00</PrincipalBalance>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>2234567890</LoanNumber>
+        <PrincipalBalance>6000.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>55.00</ScheduledPaymentAmount>  
+        <AccruedInterest>18.00</AccruedInterest>
+        <PrincipalBalance>2500.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>3234567890</LoanNumber>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>420.00</ScheduledPaymentAmount>
+        <AccruedInterest>148.00</AccruedInterest>
+        <PrincipalBalance>9300.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>   
+        <IntegratedLoanType>Parent</IntegratedLoanType>  
+      </Loan>
+      <Loan>
+        <LoanNumber>323456789001</LoanNumber>      
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>  
+        <AccruedInterest>68.00</AccruedInterest>
+        <PrincipalBalance>5500.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>      
+      </Loan>
+      <Loan>
+        <LoanNumber>323456789002</LoanNumber>      
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>80.00</AccruedInterest>
+        <PrincipalBalance>3800.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>     
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Province</IntegratedLoanType>      
+      </Loan>
+      <Loan>
+        <LoanNumber>4234567890</LoanNumber>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>800.00</ScheduledPaymentAmount>
+        <AccruedInterest>200.00</AccruedInterest>
+        <PrincipalBalance>16000.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Parent</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>423456789001</LoanNumber>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>105.00</AccruedInterest>
+        <PrincipalBalance>10000.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>423456789002</LoanNumber>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>95.00</AccruedInterest>
+        <PrincipalBalance>6000.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Province</IntegratedLoanType>
+      </Loan>
+    </LoanSet>
+    ]]>
+  </RuleDataXML>
+
+</InRuleRequest>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://dh.com/inruleservice/" elementFormDefault="qualified" targetNamespace="http://dh.com/inruleservice/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationService" />
+  <xs:element name="PaymentAllocationRules">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationService" minOccurs="0" name="request" nillable="true" type="q1:InRuleRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PaymentAllocationRulesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationService" minOccurs="0" name="PaymentAllocationRulesResult" nillable="true" type="q2:InRuleResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

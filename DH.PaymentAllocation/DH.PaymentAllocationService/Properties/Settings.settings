@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DH.PaymentAllocationService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TopEntityName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">PaymentAllocationRoot</Value>
+    </Setting>
+    <Setting Name="RuleAppDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Marian\Documents\InRule\D+H\Ruleapp\</Value>
+    </Setting>
+    <Setting Name="IsHardCoded" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="UseLog" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LogDirectory" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Temp\</Value>
+    </Setting>
+    <Setting Name="RuleAppObject" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DHLoanPaymentAllocation_v11.ruleapp</Value>
+    </Setting>
+    <Setting Name="PerformPostValidation" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PerformPreValidation" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,111 @@
+﻿A<?xml version="1.0" encoding="utf-8"?>
+<InRuleRequest>
+  <RuleInfo>
+    <RuleName>DirectedPaymentAllocation</RuleName>
+    <Caller>Cavion</Caller>
+    <RuleEvaluationDate>4/4/2015</RuleEvaluationDate>
+    <Filler></Filler>
+  </RuleInfo>
+  <RuleDataXML>
+    <![CDATA[ 
+    <LoanSet>
+      <Loan>
+        <LoanNumber>1234567890</LoanNumber>
+        <PaymentAmount>267.00</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>300.00</ScheduledPaymentAmount>
+        <AccruedInterest>130.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>6000.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>2234567890</LoanNumber>
+        <PaymentAmount>111.00</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>55.00</ScheduledPaymentAmount>
+        <AccruedInterest>18.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>2500.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>3234567890</LoanNumber>
+        <PaymentAmount>412.50</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>420.00</ScheduledPaymentAmount>
+        <AccruedInterest>148.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>9300.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Parent</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>323456789001</LoanNumber>
+        <PaymentAmount>0</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>68.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>5500.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>323456789002</LoanNumber>
+        <PaymentAmount>0</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>80.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>3800.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Provincial</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>4234567890</LoanNumber>
+        <PaymentAmount>1500</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>800.00</ScheduledPaymentAmount>
+        <AccruedInterest>200.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>16000.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Parent</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>423456789001</LoanNumber>
+        <PaymentAmount>0</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>105.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>10000.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>423456789002</LoanNumber>
+        <PaymentAmount>0</PaymentAmount>
+        <LoanStatus>In Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>95.00</AccruedInterest>
+       <AccruingNonRepaymentInterest>0</AccruingNonRepaymentInterest>
+        <PrincipalBalance>6000.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Provincial</IntegratedLoanType>
+      </Loan>
+    </LoanSet>
+       ]]>
+  </RuleDataXML>
+</InRuleRequest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationObjects" />
+  <xs:complexType name="InRuleRequest">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationObjects" minOccurs="0" name="ErrorDetails" nillable="true" type="q1:ArrayOfError" />
+      <xs:element minOccurs="0" name="RuleDataXML" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RuleInfo" nillable="true" type="tns:RuleInfo" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InRuleRequest" nillable="true" type="tns:InRuleRequest" />
+  <xs:complexType name="RuleInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Caller" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DH.PaymentAllocationObjects" minOccurs="0" name="ErrorDetails" nillable="true" type="q2:ArrayOfError" />
+      <xs:element minOccurs="0" name="Filler" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RuleEvaluationDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RuleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="RuleInfo" nillable="true" type="tns:RuleInfo" />
+  <xs:complexType name="InRuleResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RuleInfo" nillable="true" type="tns:RuleInfo" />
+      <xs:element minOccurs="0" name="RuleResult" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="InRuleResponse" nillable="true" type="tns:InRuleResponse" />
+</xs:schema>

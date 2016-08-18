@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PaymentAllocationRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <PaymentAmount>527.37</PaymentAmount>  
+      <LoanSet>    
+        <LoanNumber>1234567890</LoanNumber>
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>4075.00</PrincipalBalance>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>2234567890</LoanNumber>
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>  
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>9750.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>3234567890</LoanNumber>
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>12870.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>   
+        <IntegratedLoanType>Parent</IntegratedLoanType>  
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>323456789001</LoanNumber>      
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>  
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>7140.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>      
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>323456789002</LoanNumber>      
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>5730.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>     
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Provincial</IntegratedLoanType>      
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>4234567890</LoanNumber>
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>20050.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Parent</IntegratedLoanType>
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>423456789001</LoanNumber>
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>14280.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>
+      </LoanSet>
+      <LoanSet>
+        <LoanNumber>423456789002</LoanNumber>
+        <LoanStatus>In Non-Repayment</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>5770.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Provincial</IntegratedLoanType>
+      </LoanSet>
+</PaymentAllocationRoot>
