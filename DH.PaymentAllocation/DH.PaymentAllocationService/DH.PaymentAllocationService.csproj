@@ -24,6 +24,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -47,15 +48,21 @@
   <ItemGroup>
     <Reference Include="InRule.Common, Version=4.6.15.527, Culture=neutral, PublicKeyToken=1feb8dd25b1ceb6b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\InRule\irSDK\bin\InRule.Common.dll</HintPath>
+      <HintPath>..\Assemblies\inrule.common.dll</HintPath>
     </Reference>
     <Reference Include="InRule.Repository, Version=4.6.15.527, Culture=neutral, PublicKeyToken=1feb8dd25b1ceb6b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\InRule\irSDK\bin\InRule.Repository.dll</HintPath>
+      <HintPath>..\Assemblies\InRule.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="InRule.Repository.XmlSerializers">
+      <HintPath>..\Assemblies\InRule.Repository.XmlSerializers.dll</HintPath>
     </Reference>
     <Reference Include="InRule.Runtime, Version=4.6.15.527, Culture=neutral, PublicKeyToken=1feb8dd25b1ceb6b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\InRule\irSDK\bin\InRule.Runtime.dll</HintPath>
+      <HintPath>..\Assemblies\inrule.runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Assemblies\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

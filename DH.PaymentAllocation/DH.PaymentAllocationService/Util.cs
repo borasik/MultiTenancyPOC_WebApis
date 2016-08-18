@@ -12,13 +12,14 @@ namespace DH.PaymentAllocationService
     public static class Util
     {
         #region serializers
+
         public static T DeserializeFromXml<T>(string xml)
         {
             T result;
-            var ser = new XmlSerializer(typeof(T));
+            var ser = new XmlSerializer(typeof (T));
             using (TextReader tr = new StringReader(xml))
             {
-                result = (T)ser.Deserialize(tr);
+                result = (T) ser.Deserialize(tr);
             }
             return result;
         }
@@ -27,7 +28,7 @@ namespace DH.PaymentAllocationService
         {
             using (var fileStream = new FileStream(fileName, FileMode.Create))
             {
-                var ser = new XmlSerializer(typeof(T));
+                var ser = new XmlSerializer(typeof (T));
                 ser.Serialize(fileStream, obj);
             }
         }
@@ -36,20 +37,21 @@ namespace DH.PaymentAllocationService
         {
             using (var stringWriter = new StringWriter())
             {
-                var ser = new XmlSerializer(typeof(T));
+                var ser = new XmlSerializer(typeof (T));
                 ser.Serialize(stringWriter, obj);
                 return stringWriter.ToString();
             }
         }
+
         #endregion
 
         public static XmlNode RenameNode(XmlNode node, string namespaceUri, string qualifiedName)
         {
             if (node.NodeType == XmlNodeType.Element)
             {
-                XmlElement oldElement = (XmlElement)node;
+                XmlElement oldElement = (XmlElement) node;
                 XmlElement newElement =
-                node.OwnerDocument.CreateElement(qualifiedName, namespaceUri);
+                    node.OwnerDocument.CreateElement(qualifiedName, namespaceUri);
                 while (oldElement.HasAttributes)
                 {
                     newElement.SetAttributeNode(oldElement.RemoveAttributeNode(oldElement.Attributes[0]));
@@ -72,7 +74,6 @@ namespace DH.PaymentAllocationService
 
         public static string GetRuleResultXml(List<Payment> payments)
         {
-
             XmlDocument xmlPayments = new XmlDocument();
             xmlPayments.LoadXml(Util.SerializeToXmlString(payments));
 
