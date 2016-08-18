@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DH.PaymentAllocationObjects")]
+[assembly: AssemblyTitle("inRuleClientRequestSolution")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DH.PaymentAllocationObjects")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyProduct("inRuleClientRequestSolution")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4ef9338b-ca9e-45be-b0ea-b52a063d8a7a")]
+[assembly: Guid("0eaf3d81-1d78-4d67-b7db-0c3bdfa03279")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2016.8.18.5")]
-[assembly: AssemblyFileVersion("2016.8.18.5")]
+[assembly: AssemblyVersion("2016.8.18.10")]
+[assembly: AssemblyFileVersion("2016.8.18.10")]
