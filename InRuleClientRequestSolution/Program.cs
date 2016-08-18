@@ -16,7 +16,6 @@ namespace InRuleClientRequestSolution
             try
             {
                 Console.WriteLine($"Request started at:{DateTime.Now}");
-                // var e = 3;
                 var reader = new XmlSerializer(typeof(InRuleRequest));
                 var file = new StreamReader("InRuleRequestJane1.xml");
                 //var request = new InRuleRequest();
