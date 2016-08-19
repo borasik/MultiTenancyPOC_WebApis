@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-
-namespace GenericRepositorySolution
+﻿namespace GenericRepositorySolution
 {
     public interface IEntity
     {
