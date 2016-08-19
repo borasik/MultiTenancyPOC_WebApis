@@ -17,12 +17,12 @@ namespace GenericRepositorySolution
        
         }
 
-        public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
             return Context?.Set<T>().Where(predicate);
         }
 
-        public T FindById(int entityId)
+        public virtual T FindById(int entityId)
         {
             return Context.Set<T>().FirstOrDefault(x => x.Id == entityId);
         }
