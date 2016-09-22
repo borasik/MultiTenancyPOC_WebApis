@@ -27,7 +27,7 @@ namespace MultiTenancyPOC.Controllers
         }
 
         [System.Web.Http.AllowAnonymous]
-        [EnableCors("*", "*", "*")]
+        [EnableCors("*", "*", "*")] 
         // GET api/values/5
         public HttpResponseMessage Get(int id)
         {
