@@ -5,15 +5,19 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using MultiTenancyPOC.ActionFilters;
 using MultiTenancyPOC.Models;
+using MultiTenancyPOC.Security;
 
 namespace MultiTenancyPOC.Controllers
 {
     [System.Web.Http.Authorize]
+    [TenantFilter]
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -27,14 +31,36 @@ namespace MultiTenancyPOC.Controllers
         // GET api/values/5
         public HttpResponseMessage Get(int id)
         {
-            var studentsList = new List<StudentModel>()
-            {
-                new StudentModel() { City = "Oakville", LastName = "Borsuk", Name = "Alex"},
-                new StudentModel() { City = "Oakville", LastName = "Borsuk", Name = "Alex"},
-                new StudentModel() { City = "Oakville", LastName = "Borsuk", Name = "Alex"}
-            };
+            List<StudentModel> studentsList;
+            HttpResponseMessage response;
+            var currentPrincipal = Thread.CurrentPrincipal as UserExtended;
 
-            var response = Request.CreateResponse(HttpStatusCode.OK);
+            if (currentPrincipal == null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.NonAuthoritativeInformation);
+                return response;
+            }
+
+            if (currentPrincipal.TenantTypes == TenantTypes.Cal)
+            {
+                studentsList = new List<StudentModel>()
+                {
+                    new StudentModel() {City = "Oakville", LastName = "Borsuk", Name = "Alex"},
+                    new StudentModel() {City = "Oakville", LastName = "Borsuk", Name = "Alex"},
+                    new StudentModel() {City = "Oakville", LastName = "Borsuk", Name = "Alex"}
+                };
+            }
+            else
+            {
+                studentsList = new List<StudentModel>()
+            {
+                new StudentModel() { City = "Toronto", LastName = "Borsuk", Name = "Alex"},
+                new StudentModel() { City = "Toronto", LastName = "Borsuk", Name = "Alex"},
+                new StudentModel() { City = "Toronto", LastName = "Borsuk", Name = "Alex"}
+            };
+            }
+
+            response = Request.CreateResponse(HttpStatusCode.OK);
             var serializer = new JavaScriptSerializer();
             var serializedResult = serializer.Serialize(studentsList);
             response.Content = new StringContent(serializedResult, Encoding.UTF8, "application/json");
