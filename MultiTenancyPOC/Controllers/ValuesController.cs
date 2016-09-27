@@ -26,9 +26,7 @@ namespace MultiTenancyPOC.Controllers
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
-        }
-
-      
+        }      
         [EnableCors("*", "*", "*")] 
         // GET api/values/5
         public HttpResponseMessage Get(int id)
@@ -37,7 +35,7 @@ namespace MultiTenancyPOC.Controllers
             HttpResponseMessage response;
             var currentPrincipal = Thread.CurrentPrincipal as UserExtended;
 
-            if (currentPrincipal == null)
+            if (currentPrincipal == null) 
             {
                 response = Request.CreateResponse(HttpStatusCode.NonAuthoritativeInformation);
                 return response;
