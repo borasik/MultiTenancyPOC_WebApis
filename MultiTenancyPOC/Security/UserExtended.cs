@@ -13,7 +13,7 @@ namespace MultiTenancyPOC.Security
             return true;
         }
 
-        public IIdentity Identity { get; }
+        public IIdentity Identity { get; set; }
 
         public TenantTypes TenantTypes { get; set; }
     }

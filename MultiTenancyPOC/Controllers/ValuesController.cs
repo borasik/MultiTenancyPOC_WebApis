@@ -11,13 +11,15 @@ using System.Web.Http.Cors;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using MultiTenancyPOC.ActionFilters;
+using MultiTenancyPOC.AuthenticationFilters;
 using MultiTenancyPOC.Models;
 using MultiTenancyPOC.Security;
 
 namespace MultiTenancyPOC.Controllers
 {
-    [System.Web.Http.Authorize]
-    [TenantFilter]
+    [AuthenticationFilter]
+    //[System.Web.Http.Authorize]
+    //[TenantFilter]
     public class ValuesController : ApiController
     {
         // GET api/values
@@ -26,7 +28,7 @@ namespace MultiTenancyPOC.Controllers
             return new string[] { "value1", "value2" };
         }
 
-        [System.Web.Http.AllowAnonymous]
+      
         [EnableCors("*", "*", "*")] 
         // GET api/values/5
         public HttpResponseMessage Get(int id)

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
-using System.Web.Mvc;
 using MultiTenancyPOC.Security;
-using ActionFilterAttribute = System.Web.Mvc.ActionFilterAttribute;
 
 namespace MultiTenancyPOC.ActionFilters
 {
