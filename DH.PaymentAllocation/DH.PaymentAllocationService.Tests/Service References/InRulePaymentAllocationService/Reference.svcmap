@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="8ebdf77e-620a-4655-9148-345f7ee593be" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="InRuleService.xsd" MetadataType="Schema" ID="d5cbe900-06d6-4efd-b153-f12389b79c42" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?xsd=xsd2" />
+    <MetadataFile FileName="InRuleService1.xsd" MetadataType="Schema" ID="598a4895-46ab-4cca-b831-0d574d181b84" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?xsd=xsd3" />
+    <MetadataFile FileName="InRuleService2.xsd" MetadataType="Schema" ID="327f2586-3761-4060-853b-ba03b7a6600b" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?xsd=xsd1" />
+    <MetadataFile FileName="InRuleService2.wsdl" MetadataType="Wsdl" ID="7a70ce03-3f73-4cd5-ae65-6f01196f8d32" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?wsdl" />
+    <MetadataFile FileName="InRuleService21.wsdl" MetadataType="Wsdl" ID="82435af8-d971-40e1-85c7-56f56c82b971" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="InRuleService1.disco" MetadataType="Disco" ID="4fedf77e-2aa4-4d8a-a101-a8765b3b110b" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?disco" />
+    <MetadataFile FileName="InRuleService3.xsd" MetadataType="Schema" ID="72fcdeee-718a-4f69-a97f-907a710d935f" SourceId="1" SourceUrl="http://dsmdsiwo01.dev.harlandfs.com:8083/InRuleService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,3452 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>InRule.Common</name>
+    </assembly>
+    <members>
+        <member name="T:InRule.Repository.Logging.LogEntries.ILogEntry">
+            <summary>
+            Defines <see cref="P:InRule.Repository.Logging.LogEntries.ILogEntry.LogLevel"/> for all log entries.
+            </summary>
+        </member>
+        <member name="P:InRule.Repository.Logging.LogEntries.ILogEntry.LogLevel">
+            <summary>
+            Indicates the log level of the log entry.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.LogEntries.LogEntryBase.ToString">
+            <summary>
+            Gets the names and values of the fields of the object.
+            </summary>
+            <returns>A tab-delimited string containing the names and values of the fields of the object.</returns>
+        </member>
+        <member name="P:InRule.Repository.Logging.LogEntries.LogEntryBase.LogLevel">
+            <summary>
+            Indicates the log level of the log entry. 
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Log.GetLogEntries(System.DateTime)">
+            <summary>
+            Gets the log entries that have been recorded since the given time.
+            </summary>
+            <param name="since">The Universal time to compare.</param>
+            <returns>An array of LogEntries.</returns>
+        </member>
+        <member name="T:InRule.Repository.Logging.Loggers.EventLogLogger">
+            <summary>
+            Writes log info to the Windows Event Log.
+            </summary>
+        </member>
+        <member name="T:InRule.Repository.Logging.Loggers.LoggerBase">
+            <summary>
+            Provides the abstract base class for loggers.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.LoggerBase.Write(InRule.Repository.Logging.LogEntries.ILogEntry)">
+            <summary>
+            Calls <see cref="M:InRule.Repository.Logging.Loggers.LoggerBase.OnWrite(InRule.Repository.Logging.LogEntries.ILogEntry)"/> if <paramref name="entry"/>'s LogLevel is the 
+            same or higher than its own <see cref="P:InRule.Repository.Logging.Loggers.LoggerBase.LogLevel"/>.
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.LoggerBase.OnWrite(InRule.Repository.Logging.LogEntries.ILogEntry)">
+            <summary>
+            Called from <see cref="M:InRule.Repository.Logging.Loggers.LoggerBase.Write(InRule.Repository.Logging.LogEntries.ILogEntry)"/>.  This is where derived classes 
+            handle the call and write to the end point; a database or the file system, for example.
+            </summary>
+            <param name="entry">The entry to write.</param>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.LoggerBase.Initialize(System.Collections.IDictionary)">
+            <summary>
+            
+            </summary>
+            <param name="options"></param>
+            <remarks>
+            Errors in this method should raise a ConfigurationException.
+            </remarks>
+        </member>
+        <member name="P:InRule.Repository.Logging.Loggers.LoggerBase.LogLevel">
+            <summary>
+            Indicates the log level of the log entry. 
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.Logger.GetLogEntry(InRule.Repository.Logging.LogEntries.ILogEntry)">
+            <summary>
+            Returns a strongly-typed LogEntry if the param is a LogEntry.  If it is not, an exception is thrown.
+            </summary>
+            <param name="entry">The log entry to return.</param>
+            <returns>A strongly-typed log entry.</returns>
+            <exception cref="T:System.ArgumentException"><paramref name="entry"/> is not a <see cref="T:InRule.Repository.Logging.LogEntry"/>.</exception>
+        </member>
+        <member name="F:InRule.Repository.Logging.Loggers.EventLogLogger.EVENTSOURCE_OPTION">
+            <summary>
+            EventSource option is internal since specifying a log other than "InRule.*" is not supported at this time.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.EventLogLogger.Initialize(System.Collections.IDictionary)">
+            <summary>
+            Initializes the logger.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:InRule.Repository.Logging.Loggers.FileLogger">
+            <summary>
+            Writes the field and property values of a log entry to a tab-delimited text file.
+            </summary>
+            <remarks>
+            The first line of output lists the property/field names.  As such, it's recommended that one FileLogger
+            is used for each LogEntry type that will be logged.
+            <p/>
+            Three options are supported by the FileLogger:  
+            <list type="table">
+            	<listheader>
+            		<term>Option</term>
+            		<term>Description</term>
+            	</listheader>
+            	<item>
+            		<term>filename</term>
+            		<description>Required.  Indicates the name of the file to write to.</description>
+            	</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="F:InRule.Repository.Logging.Loggers.FileLogger._updatesEnabled">
+            <summary>
+            EventSource option is internal since specifying a log other than "InRule.*" is not supported at this time.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.FileLogger.OnWrite(InRule.Repository.Logging.LogEntries.ILogEntry)">
+            <summary>
+            Writes to the file.
+            </summary>
+            <param name="entry">The entry to write.</param>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.FileLogger.Initialize(System.Collections.IDictionary)">
+            <summary>
+            Initializes the logger.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:InRule.Repository.Logging.Loggers.LoggerGroup">
+            <summary>
+            Represents a group of objects derived from <see cref="T:InRule.Repository.Logging.Loggers.LoggerBase"/>.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.LoggerGroup.OnWrite(InRule.Repository.Logging.LogEntries.ILogEntry)">
+            <summary>
+            Calls <see cref="M:InRule.Repository.Logging.Loggers.LoggerBase.Write(InRule.Repository.Logging.LogEntries.ILogEntry)"/> on each of the loggers in the <see cref="P:InRule.Repository.Logging.Loggers.LoggerGroup.Loggers"/> collection.
+            </summary>
+            <param name="entry"></param>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.LoggerGroup.Dispose">
+            <summary>
+            Calls <see cref="M:System.IDisposable.Dispose"/> on each of the loggers that implement <see cref="T:System.IDisposable"/>.
+            </summary>
+        </member>
+        <member name="P:InRule.Repository.Logging.Loggers.LoggerGroup.Loggers">
+            <summary>
+            The loggers represented by the group.
+            </summary>
+        </member>
+        <member name="T:InRule.Repository.Logging.Loggers.LoggerGroup.LoggerCollection">
+            <summary>
+            A collection of objects derived from <see cref="T:InRule.Repository.Logging.Loggers.LoggerBase"/>.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Logging.Loggers.LoggerGroup.LoggerCollection.Add(InRule.Repository.Logging.Loggers.LoggerBase)">
+            <summary>
+            Adds a logger to the collection.
+            </summary>
+            <param name="logger">The logger to add.</param>
+            <returns>The index of the added logger.</returns>
+        </member>
+        <member name="P:InRule.Common.Logging.GenericTracing.FileTracer.TracePath">
+            <summary>
+            The full path to the trace file.
+            </summary>
+        </member>
+        <member name="T:InRule.Repository.Logging.LogManager">
+            <summary>
+            The LogManager handles creating and managing the loggers and logger groups based on information 
+            in the application’s config file.
+            </summary>
+            <remarks>
+            The class can be used as-is to retrieve loggers, but the preferred method is to extend the 
+            class and add strongly-typed accessors to the loggers.  
+            <p/>
+            Note that LogManager implements IDisposable, so Dispose should be called before the object
+            is deleted.  The class itself doesn't hold disposable resources, but referenced Loggers may.
+            </remarks>
+        </member>
+        <member name="M:InRule.Repository.Logging.LogManager.GetLogger(System.String)">
+            <summary>
+            Returns the logger or group with the name given.
+            </summary>
+            <param name="loggerName">The name of the logger or group to return.</param>
+            <returns>The logger with the name given.</returns>
+            <exception cref="T:System.ApplicationException">Thrown if a logger with the given name doesn't exist.</exception>
+        </member>
+        <member name="M:InRule.Repository.Logging.LogManager.Dispose">
+            <summary>
+            Calls <see cref="M:System.IDisposable.Dispose"/> on each of the loggers that implement <see cref="T:System.IDisposable"/>.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Utilities.BinarySerializationUtility">
+            <summary>
+            Binary serialization utility methods
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.BinarySerializationUtility.CopyObject(System.Object)">
+            <summary>
+            Copy object (using binary serialization)
+            </summary>
+            <param name="objIn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.BinarySerializationUtility.GetObjectFromFile(System.IO.FileInfo)">
+            <summary>
+            Deserialize object instance from binary-serialized file image.
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.BinarySerializationUtility.SaveObjectToFile(System.Object,System.IO.FileInfo)">
+            <summary>
+            Save object instance to binary-serialized file image
+            </summary>
+            <param name="obj"></param>
+            <param name="file"></param>
+        </member>
+        <member name="T:InRule.Common.Utilities.CompressUtility">
+            <summary>
+            Helper for compressing and decompressing strings and byte arrays.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.Compress(System.Byte[],InRule.Common.Utilities.CompressUtility.CompressionMode,InRule.Common.Utilities.CompressUtility.CompressionLevel)">
+            <summary>
+            Compress the array of bytes using specified <paramref name="mode"/> and <paramref name="level"/> of compression.
+            </summary>
+            <param name="uncompressedData">The input array.</param>
+            <param name="mode">The compression mode.</param>
+            <param name="level">The compression level.</param>
+            <returns>The compressed array of bytes.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.Decompress(System.Byte[],InRule.Common.Utilities.CompressUtility.CompressionMode,InRule.Common.Utilities.CompressUtility.CompressionLevel)">
+            <summary>
+            Decompress the array of bytes using specified <paramref name="mode"/> and <paramref name="level"/> of compression.
+            </summary>
+            <param name="compressedData">The input array.</param>
+            <param name="mode">The compression mode.</param>
+            <param name="level">The compression level.</param>
+            <returns>The decompressed array of bytes.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.Compress(System.String,System.Text.Encoding,InRule.Common.Utilities.CompressUtility.CompressionMode,InRule.Common.Utilities.CompressUtility.CompressionLevel)">
+            <summary>
+            Compress the string using specified <paramref name="mode"/> mode and <paramref name="level"/> of compression.
+            </summary>
+            <param name="data">The input string.</param>
+            <param name="encoding">The encoding of the input string.</param>
+            <param name="mode">The compression mode.</param>
+            <param name="level">The compression level.</param>
+            <returns>The compressed array of bytes.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.Compress(System.String,System.Text.Encoding)">
+            <summary>
+            Compress the string using default <seealso cref="T:InRule.Common.Utilities.CompressUtility.CompressionMode"/> and default <seealso cref="T:InRule.Common.Utilities.CompressUtility.CompressionLevel"/>.
+            </summary>
+            <param name="data">The input string.</param>
+            <param name="encoding">The encoding of the input string.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.Decompress(System.Byte[],System.Text.Encoding,InRule.Common.Utilities.CompressUtility.CompressionMode,InRule.Common.Utilities.CompressUtility.CompressionLevel)">
+            <summary>
+            Decompress the string using specified <paramref name="mode"/> and <paramref name="level"/> of compression.
+            </summary>
+            <param name="data">The input string.</param>
+            <param name="encoding">The encoding of the input string.</param>
+            <param name="mode">The compression mode.</param>
+            <param name="level">The compression level.</param>
+            <returns>The decompressed string.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.Decompress(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Decompress the string using default <seealso cref="T:InRule.Common.Utilities.CompressUtility.CompressionMode"/> and default <seealso cref="T:InRule.Common.Utilities.CompressUtility.CompressionLevel"/>.
+            </summary>
+            <param name="data">The input string.</param>
+            <param name="encoding">The encoding of the input string.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.CompressGZip(System.IO.FileInfo)">
+            <summary>
+            Compresses a file in GZip format.
+            </summary>
+            <param name="fi">The file to compress.</param>
+            <returns><see cref="T:System.String"/> with the full path of the new gz file created</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.GetOutputStream(System.IO.Stream,InRule.Common.Utilities.CompressUtility.CompressionMode,InRule.Common.Utilities.CompressUtility.CompressionLevel)">
+            <summary>
+            Returns output stream for a given targetStream using given <paramref name="mode"/> and <paramref name="level"/> of compression.
+            </summary>
+            <param name="targetStream">The input stream.</param>
+            <param name="mode">The compression mode.</param>
+            <param name="level">The compression level.</param>
+            <returns>The output stream.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.CompressUtility.GetInputStream(System.IO.Stream,InRule.Common.Utilities.CompressUtility.CompressionMode,InRule.Common.Utilities.CompressUtility.CompressionLevel)">
+            <summary>
+            Returns intput stream for a given sourceStream using given <paramref name="mode"/> and <paramref name="level"/> of compression.
+            </summary>
+            <param name="sourceStream">The source stream.</param>
+            <param name="mode">The compression mode.</param>
+            <param name="level">The compression level.</param>
+            <returns>The input stream.</returns>
+        </member>
+        <member name="T:InRule.Common.Utilities.FlagsEnumMapper`1">
+            <summary>
+            Originally written by Brian Bennewitz to convert back and forth between [Flags] enums and enum arrays.
+            This is useful for classes used with the DataContractSerializer+WCF.
+            </summary>
+            <typeparam name="T">A [Flags] enum to convert.</typeparam>
+        </member>
+        <member name="T:InRule.Common.Utilities.ZipUtility">
+            <summary>
+            Helper for compressing and uncompressing files.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.CompressFile(System.String,System.String)">
+            <summary>
+            Compress the specified file in the specified compressed file.
+            </summary>
+            <param name="sourceFile">Name of the source file.</param>
+            <param name="targetFile">Name of the target compressed file.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.CompressDirectory(System.String,System.String)">
+            <summary>
+            Compresses all files in the specified directory.
+            </summary>
+            <param name="sourceDirectory">Source directory name.</param>
+            <param name="targetFile">Name of the targed compressed file.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.CompressFiles(System.String[],System.String)">
+            <summary>
+            Compresses all files in the specified list.
+            </summary>
+            <param name="sourceFiles">The list of source files.</param>
+            <param name="targetFile">Name of the targed compressed file.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.Decompress(System.String,System.String)">
+            <summary>
+            Decompress a given file to a given location.
+            </summary>
+            <param name="fileName">Name of the file to decompress.</param>
+            <param name="location">Location to decompress the given file.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.CompressString(System.String)">
+            <summary>
+            Compress the input string into an array of bytes.
+            </summary>
+            <param name="input">The input string.</param>
+            <returns>The array of bytes of the compressed string.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.DecompressString(System.Byte[])">
+            <summary>
+            Decompress a input array of bytes into a string.
+            </summary>
+            <param name="input">The input array of bytes.</param>
+            <returns>THe decompressed string.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.Compress(System.IO.Stream)">
+            <summary>
+            Compress a memory stream into a stream.
+            </summary>
+            <param name="inputStream">THe input stream to compress.</param>
+            <returns>Compressed stream.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.Decompress(System.IO.Stream)">
+            <summary>
+            Decompress the memory stream into a target stream.
+            </summary>
+            <param name="inputStream">The input memory stream.</param>
+            <returns>Decompressed stream.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.Compress(System.Object)">
+            <summary>
+            Compress an object into a memory stream.
+            </summary>
+            <param name="obj">The input object to compress.</param>
+            <returns>Compressed object of the specific type.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.Decompress``1(System.IO.MemoryStream)">
+            <summary>
+            Decompress the memory stream into a specific type.
+            </summary>
+            <typeparam name="T">The target type.</typeparam>
+            <param name="input">The input memory stream.</param>
+            <returns>Decompressed object of the specific type.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.Decompress``1(System.Byte[])">
+            <summary>
+            Decompress the array of bytes into a specific type.
+            </summary>
+            <typeparam name="T">The target type.</typeparam>
+            <param name="input">The input array of bytes.</param>
+            <returns>Decompressed object of the specific type.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ZipUtility.CopyStream(System.IO.Stream,System.IO.Stream)">
+            <summary>
+            Copy data from a source stream to a target stream.
+            </summary>
+            <param name="source">The source stream to copy from.</param>
+            <param name="target">The destination stream to copy to.</param>
+        </member>
+        <member name="M:InRule.Common.Web.Services.SoapExtensions.SoapHttpClientProtocolExtended.GetProxyInstance(System.Reflection.Assembly)">
+            <summary>
+            Returns new instance of SOAP proxy class from WSDL proxy assembly.
+            </summary>
+            <param name="proxyAssembly">Proxy Assembly to search.</param>
+            <returns>Instance of proxy class.</returns>
+        </member>
+        <member name="P:InRule.Common.Web.Services.SoapExtensions.SoapHttpClientProtocolExtended.SoapRequest">
+            <summary>
+            Gets the bytes of the last SOAP request
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Web.Services.SoapExtensions.SoapHttpClientProtocolExtended.SoapRequestString">
+            <summary>
+            Gets the XML of the last SOAP request
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Web.Services.SoapExtensions.SoapHttpClientProtocolExtended.SoapResponse">
+            <summary>
+            Gets the bytes of the last SOAP response
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Web.Services.SoapExtensions.SoapHttpClientProtocolExtended.SoapResponseString">
+            <summary>
+            Gets the XML of the last SOAP response
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.CanBeNullAttribute">
+            <summary>
+            Indicates that the value of the marked element could be <c>null</c> sometimes,
+            so the check for <c>null</c> is necessary before its usage
+            </summary>
+            <example><code>
+            [CanBeNull] public object Test() { return null; }
+            public void UseTest() {
+              var p = Test();
+              var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.NotNullAttribute">
+            <summary>
+            Indicates that the value of the marked element could never be <c>null</c>
+            </summary>
+            <example><code>
+            [NotNull] public object Foo() {
+              return null; // Warning: Possible 'null' assignment
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.StringFormatMethodAttribute">
+            <summary>
+            Indicates that the marked method builds string by format pattern and (optional) arguments.
+            Parameter, which contains format string, should be given in constructor. The format string
+            should be in <see cref="M:System.String.Format(System.IFormatProvider,System.String,System.Object[])"/>-like form
+            </summary>
+            <example><code>
+            [StringFormatMethod("message")]
+            public void ShowError(string message, params object[] args) { /* do something */ }
+            public void Foo() {
+              ShowError("Failed: {0}"); // Warning: Non-existing argument in format string
+            }
+            </code></example>
+        </member>
+        <member name="M:InRule.Annotations.StringFormatMethodAttribute.#ctor(System.String)">
+            <param name="formatParameterName">
+            Specifies which parameter of an annotated method should be treated as format-string
+            </param>
+        </member>
+        <member name="T:InRule.Annotations.InvokerParameterNameAttribute">
+            <summary>
+            Indicates that the function argument should be string literal and match one
+            of the parameters of the caller function. For example, 
+            the parameter of <see cref="T:System.ArgumentNullException"/> is annotated
+            </summary>
+            <example><code>
+            public void Foo(string param) {
+              if (param == null)
+                throw new ArgumentNullException("par"); // Warning: Cannot resolve symbol
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.NotifyPropertyChangedInvocatorAttribute">
+             <summary>
+             Indicates that the method is contained in a type that implements
+             <see cref="T:System.ComponentModel.INotifyPropertyChanged"/> interface
+             and this method is used to notify that some property value changed
+             </summary>
+             <remarks>
+             The method should be non-static and conform to one of the supported signatures:
+             <list>
+             <item><c>NotifyChanged(string)</c></item>
+             <item><c>NotifyChanged(params string[])</c></item>
+             <item><c>NotifyChanged{T}(Expression{Func{T}})</c></item>
+             <item><c>NotifyChanged{T,U}(Expression{Func{T,U}})</c></item>
+             <item><c>SetProperty{T}(ref T, T, string)</c></item>
+             </list>
+             </remarks>
+             <example><code>
+             public class Foo : INotifyPropertyChanged {
+               public event PropertyChangedEventHandler PropertyChanged;
+               [NotifyPropertyChangedInvocator]
+               protected virtual void NotifyChanged(string propertyName) { ... }
+            
+               private string _name;
+               public string Name {
+                 get { return _name; }
+                 set { _name = value; NotifyChanged("LastName"); /* Warning */ }
+               }
+             }
+             </code>
+             Examples of generated notifications:
+             <list>
+             <item><c>NotifyChanged("Property")</c></item>
+             <item><c>NotifyChanged(() =&gt; Property)</c></item>
+             <item><c>NotifyChanged((VM x) =&gt; x.Property)</c></item>
+             <item><c>SetProperty(ref myField, value, "Property")</c></item>
+             </list>
+             </example>
+        </member>
+        <member name="T:InRule.Annotations.ContractAnnotationAttribute">
+            <summary>
+            Describes dependency between method input and output
+            </summary>
+            <syntax>
+            <p>Function Definition Table syntax:</p>
+            <list>
+            <item>FDT      ::= FDTRow [;FDTRow]*</item>
+            <item>FDTRow   ::= Input =&gt; Output | Output &lt;= Input</item>
+            <item>Input    ::= ParameterName: Value [, Input]*</item>
+            <item>Output   ::= [ParameterName: Value]* {halt|stop|void|nothing|Value}</item>
+            <item>Value    ::= true | false | null | notnull | canbenull</item>
+            </list>
+            If method has single input parameter, it's name could be omitted.<br/>
+            Using <c>halt</c> (or <c>void</c>/<c>nothing</c>, which is the same)
+            for method output means that the methos doesn't return normally.<br/>
+            <c>canbenull</c> annotation is only applicable for output parameters.<br/>
+            You can use multiple <c>[ContractAnnotation]</c> for each FDT row,
+            or use single attribute with rows separated by semicolon.<br/>
+            </syntax>
+            <examples><list>
+            <item><code>
+            [ContractAnnotation("=> halt")]
+            public void TerminationMethod()
+            </code></item>
+            <item><code>
+            [ContractAnnotation("halt &lt;= condition: false")]
+            public void Assert(bool condition, string text) // regular assertion method
+            </code></item>
+            <item><code>
+            [ContractAnnotation("s:null => true")]
+            public bool IsNullOrEmpty(string s) // string.IsNullOrEmpty()
+            </code></item>
+            <item><code>
+            // A method that returns null if the parameter is null, and not null if the parameter is not null
+            [ContractAnnotation("null => null; notnull => notnull")]
+            public object Transform(object data) 
+            </code></item>
+            <item><code>
+            [ContractAnnotation("s:null=>false; =>true,result:notnull; =>false, result:null")]
+            public bool TryParse(string s, out Person result)
+            </code></item>
+            </list></examples>
+        </member>
+        <member name="T:InRule.Annotations.LocalizationRequiredAttribute">
+            <summary>
+            Indicates that marked element should be localized or not
+            </summary>
+            <example><code>
+            [LocalizationRequiredAttribute(true)]
+            public class Foo {
+              private string str = "my string"; // Warning: Localizable string
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.CannotApplyEqualityOperatorAttribute">
+            <summary>
+            Indicates that the value of the marked type (or its derivatives)
+            cannot be compared using '==' or '!=' operators and <c>Equals()</c>
+            should be used instead. However, using '==' or '!=' for comparison
+            with <c>null</c> is always permitted.
+            </summary>
+            <example><code>
+            [CannotApplyEqualityOperator]
+            class NoEquality { }
+            class UsesNoEquality {
+              public void Test() {
+                var ca1 = new NoEquality();
+                var ca2 = new NoEquality();
+                if (ca1 != null) { // OK
+                  bool condition = ca1 == ca2; // Warning
+                }
+              }
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.BaseTypeRequiredAttribute">
+            <summary>
+            When applied to a target attribute, specifies a requirement for any type marked
+            with the target attribute to implement or inherit specific type or types.
+            </summary>
+            <example><code>
+            [BaseTypeRequired(typeof(IComponent)] // Specify requirement
+            public class ComponentAttribute : Attribute { }
+            [Component] // ComponentAttribute requires implementing IComponent interface
+            public class MyComponent : IComponent { }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.UsedImplicitlyAttribute">
+            <summary>
+            Indicates that the marked symbol is used implicitly
+            (e.g. via reflection, in external library), so this symbol
+            will not be marked as unused (as well as by other usage inspections)
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.MeansImplicitUseAttribute">
+            <summary>
+            Should be used on attributes and causes ReSharper
+            to not mark symbols marked with such attributes as unused
+            (as well as by other usage inspections)
+            </summary>
+        </member>
+        <member name="F:InRule.Annotations.ImplicitUseKindFlags.Access">
+            <summary>Only entity marked with attribute considered used</summary>
+        </member>
+        <member name="F:InRule.Annotations.ImplicitUseKindFlags.Assign">
+            <summary>Indicates implicit assignment to a member</summary>
+        </member>
+        <member name="F:InRule.Annotations.ImplicitUseKindFlags.InstantiatedWithFixedConstructorSignature">
+            <summary>
+            Indicates implicit instantiation of a type with fixed constructor signature.
+            That means any unused constructor parameters won't be reported as such.
+            </summary>
+        </member>
+        <member name="F:InRule.Annotations.ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature">
+            <summary>Indicates implicit instantiation of a type</summary>
+        </member>
+        <member name="T:InRule.Annotations.ImplicitUseTargetFlags">
+            <summary>
+            Specify what is considered used implicitly
+            when marked with <see cref="T:InRule.Annotations.MeansImplicitUseAttribute"/>
+            or <see cref="T:InRule.Annotations.UsedImplicitlyAttribute"/>
+            </summary>
+        </member>
+        <member name="F:InRule.Annotations.ImplicitUseTargetFlags.Members">
+            <summary>Members of entity marked with attribute are considered used</summary>
+        </member>
+        <member name="F:InRule.Annotations.ImplicitUseTargetFlags.WithMembers">
+            <summary>Entity marked with attribute and all its members considered used</summary>
+        </member>
+        <member name="T:InRule.Annotations.PublicAPIAttribute">
+            <summary>
+            This attribute is intended to mark publicly available API
+            which should not be removed and so is treated as used
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.InstantHandleAttribute">
+            <summary>
+            Tells code analysis engine if the parameter is completely handled
+            when the invoked method is on stack. If the parameter is a delegate,
+            indicates that delegate is executed while the method is executed.
+            If the parameter is an enumerable, indicates that it is enumerated
+            while the method is executed
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.PureAttribute">
+            <summary>
+            Indicates that a method does not make any observable state changes.
+            The same as <c>System.Diagnostics.Contracts.PureAttribute</c>
+            </summary>
+            <example><code>
+            [Pure] private int Multiply(int x, int y) { return x * y; }
+            public void Foo() {
+              const int a = 2, b = 2;
+              Multiply(a, b); // Waring: Return value of pure method is not used
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.PathReferenceAttribute">
+            <summary>
+            Indicates that a parameter is a path to a file or a folder
+            within a web project. Path can be relative or absolute,
+            starting from web root (~)
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcActionAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
+            is an MVC action. If applied to a method, the MVC action name is calculated
+            implicitly from the context. Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcAreaAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC area.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcControllerAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that
+            the parameter is an MVC controller. If applied to a method,
+            the MVC controller name is calculated implicitly from the context.
+            Use this attribute for custom wrappers similar to 
+            <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcMasterAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC Master.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Controller.View(String, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcModelTypeAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC model type.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Controller.View(String, Object)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcPartialViewAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that
+            the parameter is an MVC partial view. If applied to a method,
+            the MVC partial view name is calculated implicitly from the context.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcSupressViewErrorAttribute">
+            <summary>
+            ASP.NET MVC attribute. Allows disabling all inspections
+            for MVC views within a class or a method.
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcDisplayTemplateAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC display template.
+            Use this attribute for custom wrappers similar to 
+            <c>System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcEditorTemplateAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC editor template.
+            Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Html.EditorExtensions.EditorForModel(HtmlHelper, String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcTemplateAttribute">
+            <summary>
+            ASP.NET MVC attribute. Indicates that a parameter is an MVC template.
+            Use this attribute for custom wrappers similar to
+            <c>System.ComponentModel.DataAnnotations.UIHintAttribute(System.String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcViewAttribute">
+            <summary>
+            ASP.NET MVC attribute. If applied to a parameter, indicates that the parameter
+            is an MVC view. If applied to a method, the MVC view name is calculated implicitly
+            from the context. Use this attribute for custom wrappers similar to
+            <c>System.Web.Mvc.Controller.View(Object)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Annotations.AspMvcActionSelectorAttribute">
+            <summary>
+            ASP.NET MVC attribute. When applied to a parameter of an attribute,
+            indicates that this parameter is an MVC action name
+            </summary>
+            <example><code>
+            [ActionName("Foo")]
+            public ActionResult Login(string returnUrl) {
+              ViewBag.ReturnUrl = Url.Action("Foo"); // OK
+              return RedirectToAction("Bar"); // Error: Cannot resolve action
+            }
+            </code></example>
+        </member>
+        <member name="T:InRule.Annotations.RazorSectionAttribute">
+            <summary>
+            Razor attribute. Indicates that a parameter or a method is a Razor section.
+            Use this attribute for custom wrappers similar to 
+            <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>
+            </summary>
+        </member>
+        <member name="T:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.AccountNotActive">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The account associated with the license key is not active.&lt;/Message&gt;
+            &lt;Resolution&gt;Contact your InRule account manager or contact InRule by phone or email:  http://www.inrule.com/company/contact.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Contact your InRule account manager or contact InRule by phone or email:  &lt;![CDATA[&lt;a href=&quot;http://www.inrule.com/company/contact.aspx&quot;&gt;http://www.inrule.com/company/contact.aspx&lt;/a&gt;]]&gt;&lt;/HtmlResolution&gt;
+            &lt;AdditionalInfo&gt;Serial Number: {0}&lt;/Addi [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.ActivateConnectionError">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Unable to activate InRule due to a connection issue.&lt;/Message&gt;
+            &lt;Resolution&gt;This issue can be caused by any number of network problems.  Most frequently it is caused by the lack of an internet connection or a firewall.  The quickest resolution is to activate by email.  However, if you can quickly determine the root network issue and resolve it then you should be able to activate by internet once connectivity has been restored.  
+            
+            This is the network exception that wa [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.AgreementNotActive">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The agreement associated with the license key is not active.&lt;/Message&gt;
+            &lt;Resolution&gt;Contact your InRule account manager or contact InRule by phone or email:  http://www.inrule.com/company/contact.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Contact your InRule account manager or contact InRule by phone or email:  &lt;![CDATA[&lt;a href=&quot;http://www.inrule.com/company/contact.aspx&quot;&gt;http://www.inrule.com/company/contact.aspx&lt;/a&gt;]]&gt;&lt;/HtmlResolution&gt;
+            &lt;AdditionalInfo&gt;Serial Number: {0}&lt;/Ad [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.CouldNotLoadFoundLicense">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;A license  for {0} was found but was unreadable.&lt;/Message&gt;
+            &lt;Resolution&gt;Reactivate with a valid {0} license key on this machine to proceed. If you choose not to reactivate and want to update the InRule licensing system to reflect this deactivation then use the following link: http://support.inrule.com/Deactivation.aspx?code={1}&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Reactivate with a valid {0} license key on this machine to proceed. If you choose not to reactivate and want to u [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.CouldNotValidateFoundLicense">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;A license  for {0} was found but was unreadable.&lt;/Message&gt;
+            &lt;Resolution&gt;Reactivate with a valid {0} license key on this machine to proceed. If you choose not to reactivate and want to update the InRule licensing system to reflect this deactivation then use the following link: http://support.inrule.com/Deactivation.aspx?code={1}&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Reactivate with a valid {0} license key on this machine to proceed. If you choose not to reactivate and want to u [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.CpuIdMismatch">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The machine configuration has been modified since the last activation.&lt;/Message&gt;
+            &lt;Resolution&gt;Update the InRule licensing system to reflect this deactivation by using the following link: http://support.inrule.com/Deactivation.aspx?code={1}
+            
+            Once deactivation is complete, reactivate with a valid  {0} license key on this machine.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Update the InRule licensing system to reflect this deactivation by using the following &lt;![CDATA[&lt;a href=&quot;http:/ [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.DeactivateConnectionError">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Deactivation of {0} was successful locally, however, the InRule Licensing System was not updated due to a connection issue.&lt;/Message&gt;
+            &lt;Resolution&gt;Update the InRule licensing system to reflect this deactivation by using the following link: http://support.inrule.com/Deactivation.aspx?code={1}&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Update the InRule licensing system to reflect this deactivation by using the following &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/Deactivation.aspx?c [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.DirectoryDoesNotExist">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Unable to access license.&lt;/Message&gt;
+            &lt;Resolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.
+            
+            More information can be found on the following page: http://support.inrule.com/cs/forums/p/522/1024.aspx.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/cs/forums [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.ErrorCheckingFolderPermissions">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Unable to access license.&lt;/Message&gt;
+            &lt;Resolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: http://support.inrule.com/cs/forums/p/522/1024.aspx.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/cs/forums/p [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.ErrorGettingUserGroups">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Unable to access license.&lt;/Message&gt;
+            &lt;Resolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: http://support.inrule.com/cs/forums/p/522/1024.aspx.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/cs/forums/p [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.HashMismatch">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The machine configuration has been modified since the last activation.&lt;/Message&gt;
+            &lt;Resolution&gt;Update the InRule licensing system to reflect this deactivation by using the following link: http://support.inrule.com/Deactivation.aspx?code={0}
+            
+            Once deactivation is complete, reactivate with a valid  {0} license key on this machine.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Update the InRule licensing system to reflect this deactivation by using the following &lt;![CDATA[&lt;a href=&quot;http:/ [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.IncorrectProduct">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The license key you entered does not unlock {0}.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;http://support.inr [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.IncorrectVersion">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The license key you entered does not unlock version {0} of {1}.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {1} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;htt [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.InvalidSerialNumberClient">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The license key you entered is not valid.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key. 
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;http://support.inrule.co [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.InvalidSerialNumberServer">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The license key you entered is not valid.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key. 
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;AdditionalInfo&gt;Serial Number: {1}&lt;/AdditionalInfo&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on t [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.LicenseExpired">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;InRule {0} License found but expired on {1}.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a non-expired {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a non-expired {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;http://sup [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.LicenseNotFound">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;InRule {0} license not found.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/activations [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.LicenseTypeRequiresName">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The {0} license key you entered requires a valid name to be specified.&lt;/Message&gt;
+            &lt;Resolution&gt;The name entered must be on the list of authorized users set up on the InRule Support Site Administer Users page (http://support.inrule.com/AdministerUsers.aspx).  
+            
+            Enter a different name and try to reactivate or check with your Client Administrator for additional details.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;The name entered must be on the list of authorized users set up on the I [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.ModifiedClock">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The machine configuration has been modified since the last activation.&lt;/Message&gt;
+            &lt;Resolution&gt;Update the InRule licensing system to reflect this deactivation by using the following link: http://support.inrule.com/Deactivation.aspx?code={0}
+            
+            Once deactivation is complete, reactivate with a valid  {1} license key on this machine.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Update the InRule licensing system to reflect this deactivation by using the following link: &lt;![CDATA[&lt;a href=&quot; [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.NoFolderPermissions">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Unable to access license.&lt;/Message&gt;
+            &lt;Resolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: http://support.inrule.com/cs/forums/p/522/1024.aspx.&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Often this issue is caused by an inability to access necessary resources on the machine.  More information can be found on the following page: &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/cs/forums/p [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.NotExpected">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Exception: {0}.&lt;/Message&gt;
+            &lt;Resolution&gt;&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;&lt;/HtmlResolution&gt;
+            &lt;AdditionalInfo&gt;&lt;/AdditionalInfo&gt;
+            &lt;ServerException&gt;true&lt;/ServerException&gt;
+            &lt;/LicensingExceptionTemplate&gt;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.NumberOfActivationsExceeded">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Activating on this machine would exceed the licensed number of machines.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;AdditionalInfo&gt;{1}&lt;/AdditionalInfo&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations a [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.NumberOfCpusExceeded">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Activating on this machine would exceed the licensed number of cores/CPUs.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt; [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.SerialNumberDoesntUnlockRequestedProduct">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The license key you entered does not unlock {0}.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a valid {0} license key. 
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a valid {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;http://support.in [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.TrialExpired">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Grace period has ended.&lt;/Message&gt;
+            &lt;Resolution&gt;Activate with a non-expired {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  http://support.inrule.com/activations.aspx&lt;/Resolution&gt;
+            &lt;HtmlResolution&gt;Activate with a non-expired {0} license key.
+            
+            To help you manage the use of your licenses you can view current activations at any time on this page:  &lt;![CDATA[&lt;a href=&quot;http://support.inrule.com/activ [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.UserActivationsExceeded">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;Activating on this machine would exceed the licensed number of machines allowed for this user.&lt;/Message&gt;
+            &lt;Resolution&gt;The name entered is on the list of authorized users set up on the InRule Support Site Administer Users page (http://support.inrule.com/AdministerUsers.aspx).   However, the maximum number of allowed activations for that user has been reached.
+            
+            Enter a different name and try to reactivate or check with your Client Administrator for additional details.&lt; [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:InRule.Common.ExceptionFactories.LicensingExceptions.LicensingExceptionTemplates.UserDoesntExist">
+             <summary>
+               Looks up a localized string similar to &lt;LicensingExceptionTemplate&gt;
+            &lt;Message&gt;The {0} license key you entered requires a valid name to be specified.&lt;/Message&gt;
+            &lt;Resolution&gt;The name entered must be on the list of authorized users set up on the InRule Support Site Administer Users page (http://support.inrule.com/AdministerUsers.aspx).  
+            
+            Enter a different name and try to reactivate or check with your Client Administrator for additional details.&lt;/Resolution&gt;
+            &lt;AdditionalInfo&gt;Name: {1}&lt;/AdditionalInfo&gt;
+            &lt;HtmlResolution&gt;The name entered must be on  [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="T:InRule.Common.Exceptions.RuleException">
+            <summary>
+            Base exception used for all InRule exceptions.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Exceptions.RuleException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Binarily serializes <see cref="T:InRule.Common.Exceptions.RuleException"/>
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="M:InRule.Common.Exceptions.RuleException.WrapException(System.Exception)">
+            <summary>
+            Allows a <see cref="T:System.Exception"/> to be wrapped in a RuleException, preserving the original exception's name in the Message.
+            Note: Environment properties are not set as they cannot be identifed from a non-RuleException.
+            </summary>
+            <param name="ex">The exception to be wrapped.</param>
+            <returns>A RuleException containing the wrapped exception's name in its message.</returns>
+        </member>
+        <member name="P:InRule.Common.Exceptions.RuleException.ServerSide">
+            <summary>
+            Determines whether the exception occurred in the RuleEngineService or client-side.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Extensions.AssemblyExtensions">
+            <summary>
+            Extensions to retrieve assembly information from .NET and Silverlight assemblies.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Utilities.ExecStatInfo">
+            <summary>
+            Provides time sample statistics, including low-overhead median and peak-bucket calculations. 
+            </summary>
+            <remarks>
+            Currently implemented for non-negative times only.
+            </remarks>
+        </member>
+        <member name="M:InRule.Common.Utilities.ExecStatInfo.#ctor">
+            <summary>
+            Creates a new instance of <see cref="T:InRule.Common.Utilities.ExecStatInfo"/>
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.ExecStatInfo.AddSample(System.TimeSpan)">
+            <summary>
+            Records a time sample for this <see cref="T:InRule.Common.Utilities.ExecStatInfo"/> statistic.
+            </summary>
+            <param name="sample"></param>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.SampleCount">
+            <summary>
+            Gets the number of samples recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.RunningTotal">
+            <summary>
+            Gets the cumulative time for all the samples recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.First">
+            <summary>
+            Gets the first sample recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.Last">
+            <summary>
+            Gets the last sample recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.Min">
+            <summary>
+            Gets the minimum sample recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.Max">
+            <summary>
+            Gets the maximum sample recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.Avg">
+            <summary>
+            Gets the mean average of samples recorded.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.Median">
+            <summary>
+            Gets the median average of samples recorded.
+            </summary>
+            <remarks>
+            Returns top value of lowest range (e.g., 0, 0-1, 1-2, 30-40) that number is l.e. to
+            </remarks>
+        </member>
+        <member name="P:InRule.Common.Utilities.ExecStatInfo.Mode">
+            <summary>
+            Gets the mode average of samples recorded. (Range having the most samples passed in so far)
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Xml.Schema.Wsdl.Wsdl">
+            <summary>
+            Represents a WSDL file and services therein
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Xml.Schema.Wsdl.Wsdl.#ctor(System.String,System.String,System.TimeSpan,System.Int32,InRule.Common.Logging.LogEventSource)">
+            <summary>
+            Initializes a new instance of the <see cref="T:InRule.Common.Xml.Schema.Wsdl.Wsdl"/> class from the specified <see cref="T:System.String"/> URI.
+            </summary>
+            <param name="uri">Specifies the URI from which to read a WSDL</param>
+            <param name="wsdlX509Path">Specifies the X509 client certificate used to access the WSDL</param>
+            <param name="timeout">Specifies the timeout in milliseconds when accessing the WSDL</param>
+            <param name="retry">Specifies the number of retry attempts when a timeout occurs accessing the WSDL</param>
+            <exception cref="T:System.Exception">There was an error locating, downloading, or reading the WSDL or there are no services in the WSDL</exception>
+            <remarks>
+            The <paramref name="uri"/> may specify a remote WSDL (via HTTP/HTTPS) or a local file system WSDL
+            </remarks>
+        </member>
+        <member name="M:InRule.Common.Xml.Schema.Wsdl.Wsdl.IsValidPort(System.Web.Services.Description.Port)">
+            <summary>
+            Determines if the supplied <see cref="T:System.Web.Services.Description.Port"/> contains valid SOAP binding information
+            </summary>
+            <param name="port">Specifies the <see cref="T:System.Web.Services.Description.Port"/> to check</param>
+            <returns>true if the <see cref="T:System.Web.Services.Description.Port"/> contains valid SOAP binding information, false otherwise</returns>
+        </member>
+        <member name="M:InRule.Common.Xml.Schema.Wsdl.Wsdl.GetPortOperations(System.Web.Services.Description.Port)">
+            <summary>
+            Gets a <see cref="T:System.Web.Services.Description.OperationBindingCollection"/> describing SOAP web methods for the specified <see cref="T:System.Web.Services.Description.Port"/>
+            </summary>
+            <param name="port">Specifies the <see cref="T:System.Web.Services.Description.Port"/> to get methods from</param>
+            <returns>A <see cref="T:System.Web.Services.Description.OperationBindingCollection"/> describing SOAP web methods for the specified <see cref="T:System.Web.Services.Description.Port"/></returns>
+        </member>
+        <member name="M:InRule.Common.Xml.Schema.Wsdl.Wsdl.ToString">
+            <summary>
+            Gets a <see cref="T:System.String"/> containing the full contents of the WSDL file
+            </summary>
+            <returns>A <see cref="T:System.String"/> containing the full contents of the WSDL file</returns>
+        </member>
+        <member name="P:InRule.Common.Xml.Schema.Wsdl.Wsdl.Content">
+            <summary>
+            Gets a <see cref="T:System.String"/> containing the full contents of the WSDL file
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Xml.Schema.Wsdl.Wsdl.Uri">
+            <summary>
+            Gets the URI from which the WSDL was read
+            </summary>
+            <remarks>
+            This may specify a remote WSDL (via HTTP/HTTPS) or a local file system WSDL
+            </remarks>
+        </member>
+        <member name="P:InRule.Common.Xml.Schema.Wsdl.Wsdl.Services">
+            <summary>
+            Gets a collection of services described in the WSDL
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Xml.Schema.Wsdl.WsdlHelper.ParseWebServiceException(System.Exception,System.Int32,System.Int32,System.Int32,System.Boolean,System.Uri,System.TimeSpan,System.String,System.String,InRule.Common.Logging.LogEventSource)">
+            <summary>
+            Translates WebException into more meaningful error and wraps in a <see cref="T:InRule.Common.Exceptions.RuleException"/>.  Either throws exception or returns request attempt if within retry limit.
+            </summary>
+            <param name="thrownException">Exception to parse.</param>
+            <param name="requestAttempts">Number of previous request attempts.</param>
+            <param name="timeout">Request timeout interval in milliseconds.</param>
+            <param name="retry">Maximum retry attempts.</param>
+            <param name="retrievingWsdl">Whether this exception was thrown retrieving the WSDL, or connecting to its service.</param>
+            <param name="uri">Location of the web service.</param>
+            <param name="timeElapsed">Time elapsed from request to exception.</param>
+            <param name="X509CertPath">Location of the X509 client certificate, if used.</param>
+            <param name="exceptionSuffix">Any other exception information to attatch to the <see cref="T:InRule.Common.Exceptions.RuleException"/>.</param>
+            <returns>Number of request attempts so far due to timeout.</returns>
+        </member>
+        <member name="T:InRule.Common.Xml.Schema.XsdDataType">
+            <summary>
+            The 45 XSD primitive data types.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Xml.Schema.XsdDataTypeSerializer">
+            <summary>
+            Provides custom XML serialization and deserializtion functions compliant with XML Schema Definition's primitive data types.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Configuration.IConfigSectionHandler">
+            <summary>
+            For Internal Use Only
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Configuration.LegacyAppSettingConstants">
+            <summary>
+            Legacy AppSettings keys; now used by new ConfigSectionHandlers to load legacy AppSettings if new config section missing.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Config.RuleRepositoryConstants">
+            <summary>
+            Rule Repository constant definitions
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.IrXmlSchemaNamespace">
+            <summary>
+            The InRule xml namespace base url
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.IrRegressionXmlSchemaNamespace">
+            <summary>
+            The InRule Regression XML namespace
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.XmlSchemaInstanceNamespace">
+            <summary>
+            xsi: http://www.w3.org/2001/XMLSchema-instance
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.MicrosoftWsdlTypesNamespace">
+            <summary>
+            Microsft XML namespace for its own WSDL types
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.IrXmlSchemaNamespaceDefaultPrefix">
+            <summary>
+            Default prefix for InRule xml namespace
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.DataTextField">
+            <summary>
+            Used with "FieldDef.GetDataTypeListDisplayNames"/>
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Config.RuleRepositoryConstants.DataValueField">
+            <summary>
+            Used with "FieldDef.GetDataTypeListDisplayNames"/>
+            </summary>
+        </member>
+        <member name="T:InRule.Common.DataStructures.Queue.BlockingQueue`1">
+            <summary>
+            A blocking queue; useful for passing data between two threads without synchronization issues.
+            Use Case: ThreadC (consumer) calls Dequeue() and blocks indefinitely until ThreadP (producer) calls Enqueue(), Unblock() or Dispose().
+            ThreadP is not blocked during the enqueue process unless ThreadC is in the process of dequeuing a previously queued item.
+            ThreadC can be called from a loop so that it will always block or dequeue available items, until Unblock() or Dispose() is called.
+            Note: Enumerating this queue continuously blocks and dequeues items until this object is unblocked or disposed.
+            To enumerate the contents of the queue without blocking and dequeuing, use the CopyTo() method.
+            </summary>
+            <typeparam name="T">Any object to be queued.</typeparam>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.CopyTo(System.Array,System.Int32)">
+            <summary>
+            Copies queued items in order to destination array;  The queued items are not dequeued.
+            </summary>
+            <param name="array">Destination array.</param>
+            <param name="index">Zero-based index in destination array to start copy.</param>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Continuously blocks and dequeues items until this object is unblocked or disposed.
+            To enumerate the contents of the queue without blocking and dequeuing, use the CopyTo() method.
+            </summary>
+            <returns>Next queued item.</returns>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
+            <summary>
+            Continuously blocks and dequeues items until this object is unblocked or disposed.
+            To enumerate the contents of the queue without blocking and dequeuing, use the CopyTo() method.
+            </summary>
+            <returns>Next queued item.</returns>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.#ctor">
+            <summary>
+            Creates new instance of blocking queue.
+            The default item returned by Dequeue() when unblocked or disposed will be null for reference types and zero for value types.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.#ctor(`0)">
+            <summary>
+            Creates new instance of blocking queue.
+            </summary>
+            <param name="defaultItem">This will be the value returned by the Dequeue() method if the queue is unblocked or disposed. This can be null for reference types or an identifiable value for value types.</param>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.Enqueue(`0)">
+            <summary>
+            Adds an item to the end of the queue.  This unblocks any waiting thread in Dequeue().
+            </summary>
+            <param name="item">The item to add to the queue.  Items can be null for reference types.</param>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.Dequeue">
+            <summary>
+            Removes and returns the item at the beginning of the queue.  This method blocks until an item is enqueued.
+            </summary>
+            <returns>The item that is removed from the beginning of the queue.</returns>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.Unblock">
+            <summary>
+            Ensures the consumer thread is unblocked from Dequeue() when terminating.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.DataStructures.Queue.BlockingQueue`1.DequeueAll">
+            <summary>
+            Copies all queued items to an array, and clears underlying queue.
+            This should only be called from the producer thread to ensure all remaining items have been consumed, once the consumer thread has terminated.
+            </summary>
+            <returns>An array of all remaining items in the queue.</returns>
+        </member>
+        <member name="P:InRule.Common.DataStructures.Queue.BlockingQueue`1.Count">
+            <summary>
+            Number of items in queue.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.DataStructures.Queue.BlockingQueue`1.System#Collections#ICollection#IsSynchronized">
+            <summary>
+            Whether access to this collection is thread-safe.  This is always true.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.DataStructures.Queue.BlockingQueue`1.System#Collections#ICollection#SyncRoot">
+            <summary>
+            Reference to queue lock. This should not be used to lock for Enqueue, Dequeue, CopyTo, Dispose, enumeration or Count, as they already use this lock internally.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Utilities.RecursionStack`1.IsStartingFrame">
+            <summary>
+            Returns true if this is the first call to this property
+            since the last call to Push(T) otherwise returns false
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.VisitorStackGuard`1.PlaceholderObject">
+            <summary>
+            The placeholder object used as the value for the <c>IDictionary</c> instance.
+            </summary>
+            <remarks>
+            There is a single instance of this object globally, used for all <c>VisitorStackGuard</c>.
+            </remarks>
+        </member>
+        <member name="T:InRule.Common.Instrumentation.HighResolutionTimestamp">
+            <summary>
+            High resolution timestamp mechanism.
+            Since DateTime.Now/UtcNow only reads the real-time clock every 10-15ms, we use StopWatch instead which
+            calls kernel32 QueryPerformanceCounter() internally.
+            This has a resolution less than 100ns on modern CPUs.
+            This method has a calling overhead of approximately 160ns on a 2.66GHz Core2 E6700 CPU.
+            The timer will periodically resynchronize with the official time from DateTime.UtcNow since there is often
+            a slight drift of ~20ms/hour because the timer is based on the CPU clock, rather than the computer's real-time clock.
+            There is also a check to ensure the latest timestamp does not occur before the previous timestamp.
+            This can occur on multi-core/CPU systems, or when the drift is resynchronized.
+            When this occurs, we return the previously recorded timestamp to signify the time difference is less than 100ns.
+            There is no high resolution timer available to Silverlight, so we fall back to DateTime.UtcNow when running
+            in Silverlight for compatibility.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Instrumentation.HighResolutionTimestamp.SynchronizeTimer">
+            <summary>
+            Forces synchronization of timer relative to the current DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Instrumentation.HighResolutionTimestamp.GetDuration(System.DateTime)">
+            <summary>
+            Gets a high resolution duration relative to an existing UTC start time.
+            </summary>
+            <param name="utcStartTime">The UTC start time from which to measure the duration.</param>
+            <returns>A <see cref="T:System.TimeSpan"/> representing the current duration relative to the UTC start time provided.</returns>
+        </member>
+        <member name="P:InRule.Common.Instrumentation.HighResolutionTimestamp.UtcNow">
+            <summary>
+            Gets a high resolution UTC timestamp using Kernel32 QueryPerformanceCounter mechanism.
+            If using Silverlight, will simply return DateTimeOffset.Now.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Exceptions.InvalidXmlException">
+            <summary>
+            Exception when an Xml is invalid XML or Xml deserialize operation fails - embeds formatted problem xml as string.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Exceptions.LockAcquisitionTimeoutException">
+            <summary>
+            Only intended to be thrown from FiniteTimeoutLockAcquisitor.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Exceptions.ServiceFault">
+            <summary>
+            Serializable WCF fault for reconstructing server-side Runtime and Repository exceptions on the client.
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Exceptions.XmlValidationException">
+            <summary>
+            Exception indicating an XSD validation error on inbound or outbound XML.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Exceptions.XmlValidationException.GetXsdValidationErrors">
+            <summary>
+            Gets all XSD validation errors to a single newline-delimited string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:InRule.Common.Logging.EventLogName.InRule">
+            <summary>
+            Indicates the custom InRule log.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Logging.EventLogName.Application">
+            <summary>
+            Indicates Application log.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Logging.LogLevel.Fatal">
+            <summary>
+            Indicates a fatal situation.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Logging.LogLevel.Error">
+            <summary>
+            Indicates an error.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Logging.LogLevel.Warn">
+            <summary>
+            Indicates a warning.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Logging.LogLevel.Info">
+            <summary>
+            Indicates information.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Logging.LogLevel.Debug">
+            <summary>
+            Indicates debug.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Serialization.ConditionalSerializationMode.Clone">
+            <summary>
+            Create a full copy
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Serialization.ConditionalSerializationMode.Package">
+            <summary>
+            Create a custom copy to be received by the target defined by the accompanying <see cref="T:System.Runtime.Serialization.StreamingContextStates"/>
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Serialization.ConditionalSerializationMode.Freeze">
+            <summary>
+            Create a custom copy to be unfrozen by the current process
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Serialization.ConditionalSerializationMode.Reduce">
+            <summary>
+            Create a custom copy with a minimal set of required information
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.AltSerializeException">
+            <summary>
+            Thrown when the AltSerializer encounters an error.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.AltSerializer.SerializePropertyNames">
+            <summary>
+            If true, the names of the properties are serialized along with
+            the data.  This ensures that previous versions of serialized data
+            don't misread the data stream.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.AltSerializer.Stream">
+            <summary>
+            Gets or sets the stream used for serialization
+            or deserialization.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.AltSerializer.CacheEnabled">
+            <summary>
+            Gets or sets a value indicating whether or not the serializer
+            cache is enabled.  If true, then any duplicate objects that are serialized
+            are hashed and stored, minimizing the amount of space serialization takes.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.AltSerializer.Cache">
+            <summary>
+            Gets the cache used by the serializer.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.GetMetaData(System.Type,System.Runtime.Serialization.ISurrogateSelector,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Gets the meta data for an object type.  If the Type doesn't exist in
+            the meta data hash, it is created.
+            </summary>
+            <param name="type">The object Type to get metadata for.</param>
+            <returns>Returns an ObjectMetaData class representing the <paramref name="type"/> parameter.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.SetCachedObjectID(System.Object,System.Int32)">
+            <summary>
+            Sets the Cache ID of an object.  Used in dynamic serialization; this method
+            is not intended to be called from any other source.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.Reset">
+            <summary>
+            Clears the cache and resets the stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.CacheObject(System.Object)">
+            <summary>
+            Caches an object for the serializer.
+            </summary>
+            <remarks>The object being cached is permanately cached, and when encountered by the serializer,
+            is always marked as a reference.</remarks>
+            <param name="cachedObject">Object to cache.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.Write(System.String)">
+            <summary>
+            Writes a string to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadInt32">
+            <summary>
+            Reads a signed 32-bit integer from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadUInt32">
+            <summary>
+            Reads an unsigned 32-bit integer from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadByte">
+            <summary>
+            Reads a Byte from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadString">
+            <summary>
+            Reads a string from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadInt16">
+            <summary>
+            Reads a signed 16-bit value from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadUInt16">
+            <summary>
+            Reads an unsigned 16-bit value from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadInt64">
+            <summary>
+            Reads a signed 64-bit value from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadUInt64">
+            <summary>
+            Reads an unsigned 64-bit value from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadDateTime">
+            <summary>
+            Reads a DateTime from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadTimeSpan">
+            <summary>
+            Reads a TimeSpan from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadGuid">
+            <summary>
+            Reads a Guid from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadChar">
+            <summary>
+            Reads a Char from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadDecimal">
+            <summary>
+            Reads a Decimal from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadDouble">
+            <summary>
+            Reads a double-precision floating point value from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadSingle">
+            <summary>
+            Reads a single-precision floating point value from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.ReadCultureInfo">
+            <summary>
+            Reads culture info from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.WriteCultureInfo(System.Globalization.CultureInfo)">
+            <summary>
+            Writes a CultureInfo structure to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.Serialize(System.Object)">
+            <summary>
+            Serializes an object into the serializer stream.
+            </summary>
+            <param name="obj">Object to serialize.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.Serialize(System.Object,System.Type)">
+            <summary>
+            Serializes an object.
+            </summary>
+            <remarks>Using this overload and specifying an object type prevents
+            Type information for the object from being written.  This means
+            that the call to deserialize must also specify the object type.</remarks>
+            <param name="obj">Object to serialize</param>
+            <param name="objectType">Object Type to serialize.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.Deserialize">
+            <summary>
+            Deserialize an object.  This method requires the SerializeObjectType property
+            to be true.
+            </summary>
+            <returns>Returns the deserialized object of type.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.AltSerializer.Deserialize(System.Type)">
+            <summary>
+            Deserialize an object.
+            </summary>
+            <param name="objectType">Type of object to deserialize to.</param>
+            <returns>Returns the deserialized object of type <paramref name="objectType"/>.</returns>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.CompiledSerializerAttribute">
+            <summary>
+            If this attribute is specified on a class, then the serializer
+            uses dynamic generated code to perform serialization/deserialization.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.DoNotSerializeAttribute">
+            <summary>
+            Include this metatag in front of properties that shouldn't be serialized.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.IAltSerializable">
+            <summary>
+            When this interface is implemented, the serializer skips its internal
+            object decomposition code and calls Serialize/Deserialize instead.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.IAltSerializable.Serialize(System.Runtime.Serialization.AltSerializer.AltSerializer)">
+            <summary>
+            Serializes the object.
+            </summary>
+            <param name="serializer">AltSerializer to serialize object into.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.IAltSerializable.Deserialize(System.Runtime.Serialization.AltSerializer.AltSerializer)">
+            <summary>
+            Deserializes the object.
+            </summary>
+            <param name="deserializer">AltSerializer to deserialize the object from.</param>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.ObjectMetaData">
+            <summary>
+            Data class container holding information about
+            how to serialize an object.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ObjectMetaData.FindMemberInfoByName(System.String)">
+            <summary>
+            Searches the member information for a property/field name.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.Owner">
+            <summary>
+            Owner of the meta-data.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.ObjectType">
+            <summary>
+            Gets or sets the object type.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.ImplementsIList">
+            <summary>
+            Indicates if the type implements System.Collections.IList
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.ImplementsIDictionary">
+            <summary>
+            Indicates if the type implements System.Collections.IDictionary
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.IsISerializable">
+            <summary>
+            Indicates if the type implements the ISerializable interface.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.IsIAltSerializable">
+            <summary>
+            True of the object implements the IAltSerializable interface.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.Fields">
+            <summary>
+            The fields that are serializable.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.Properties">
+            <summary>
+            The properties that are serializable.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.Values">
+            <summary>
+            Gets or sets the array of fields serialized
+            by this object.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.DynamicSerializer">
+            <summary>
+            The dynamic serializer used for this object.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.GenericTypeDefinition">
+            <summary>
+            The generic type definition, if any, of the type.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.GenericParameters">
+            <summary>
+            The generic parameters of the type.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.Extra">
+            <summary>
+            Gets or sets any extra information about the class.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ObjectMetaData.SizeField">
+            <summary>
+            FieldInfo to get the size.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo">
+            <summary>
+            Stores information about a reflected property or field.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo.#ctor(System.Reflection.FieldInfo)">
+            <summary>
+            Creates a new ReflectedMemberInfo instance with information about a field.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo.#ctor(System.Reflection.PropertyInfo)">
+            <summary>
+            Creates a new ReflectedMemberInfo instance with information about a property.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo.GetValue(System.Object)">
+            <summary>
+            Gets the value of the property/field.
+            </summary>
+            <param name="obj">Object to get the property/field of.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo.SetValue(System.Object,System.Object)">
+            <summary>
+            Sets the value of the property/field.
+            </summary>
+            <param name="obj">Object to set the property/field on.</param>
+            <param name="newValue">New value of the property/field.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo.GetFieldOrPropertyType">
+            <summary>
+            Gets the field or property Type.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.ReflectedMemberInfo.FieldType">
+            <summary>
+            Gets the Type of the property/field
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectionHelper.GetAssemblyName(System.Reflection.Assembly)">
+            <summary>
+            If you have:
+               Assembly assembly = Assembly.GetExecutingAssembly();
+            Silverlight does not allow access of:
+               string name = assembly.GetName(); //method access disallowed
+            But *will* allow:
+               AssemblyName assemblyName = new AssemblyName(assembly.FullName);
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.ReflectionHelper.IsOrIsSubclassOf(System.Type,System.Type)">
+            moved to / <see cref="T:InRule.Common.Utilities.ReflectionUtils"/>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.GetBytes(System.Object,System.Type)">
+            <summary>
+            Gets an array of bytes from any primitive object type.
+            </summary>
+            <param name="obj">Object to retrieve bytes from</param>
+            <param name="objectType">The object type passed in <paramref name="obj"/>.</param>
+            <returns>Returns an array of bytes.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.ReadBytes(System.Byte[],System.Type)">
+            <summary>
+            Turns an array of bytes into the specified object type.
+            </summary>
+            <param name="bytes">Array of bytes containing the object data.</param>
+            <param name="objectType">The type of object to convert byte array to.</param>
+            <returns>Returns an object of the type specified in <paramref name="objectType"/>.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Byte)">
+            <summary>
+            Writes a byte to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.SByte)">
+            <summary>
+            Writes a signed byte to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Writes an array of bytes to the serialization stream.
+            </summary>
+            <param name="bytes">Array of bytes to write.</param>
+            <param name="offset">Offset to begin writing from.</param>
+            <param name="count">Number of bytes to write.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Byte[])">
+            <summary>
+            Writes an array of bytes to the serialization stream.
+            </summary>
+            <param name="bytes">Array of bytes to write.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Int32)">
+            <summary>
+            Writes a signed 32-bit value to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.UInt32)">
+            <summary>
+            Writes an unsigned 32-bit value to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.UInt64)">
+            <summary>
+            Writes an unsigned 64-bit value to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.DateTime)">
+            <summary>
+            Writes a DateTime to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.TimeSpan)">
+            <summary>
+            Writes a TimeSpan to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Guid)">
+            <summary>
+            Writes a Guid to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Decimal)">
+            <summary>
+            Writes a Decimal to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Double)">
+            <summary>
+            Writes a double-precision floating point value to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Single)">
+            <summary>
+            Writes a single-precision floating point value to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.Write(System.IO.Stream,System.Char)">
+            <summary>
+            Writes a Char to the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.ReadByte(System.IO.Stream)">
+            <summary>
+            Reads a Byte from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.ReadSByte(System.IO.Stream)">
+            <summary>
+            Reads a signed byte from the serialization stream.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.ReadBytes(System.IO.Stream,System.Int32)">
+            <summary>
+            Reads an array of bytes from the serialization stream.
+            </summary>
+            <param name="count">Number of bytes to read.</param>
+            <returns>Returns an array of bytes read from the deserialization stream.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializationHelper.ReadBytes(System.IO.Stream,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Reads an array of bytes from the serialization stream.
+            </summary>
+            <param name="bytes">Byte array to read into.</param>
+            <param name="offset">Starting offset of <paramref>bytes</paramref>.</param>
+            <param name="count">Number of bytes to read.</param>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.SerializedObjectFlags">
+            <summary>
+            Flags indicating how the data was serialized.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.SerializeFlags.None">
+            <summary>
+            Do not include any extra information for serialization.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.SerializeFlags.SerializePropertyNames">
+            <summary>
+            Serialize the property names of each property.
+            Use this flag whenever the properties of an object may change,
+            or if for any reason the order of the reflected properties would
+            be different.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.SerializeFlags.SerializationCache">
+            <summary>
+            If this flag is set, then the serializer attempts to cache objects it's
+            seen before.  This allows the serializer to serialize objects that have
+            circular references, and can reduce the amount of space the serialized
+            object consumes.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.SerializeFlags.SerializeProperties">
+            <summary>
+            Serializes the properties of an object.  If this flag is not set,
+            then the fields are serialized.
+            </summary>
+        </member>
+        <member name="F:System.Runtime.Serialization.AltSerializer.SerializeFlags.All">
+            <summary>
+            Enables all serialization flags.
+            </summary>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.SerializerCache">
+            <summary>
+            Handles caching of items as they are serialized.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.Clear">
+            <summary>
+            Clears the object hash.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.Clear(System.Boolean)">
+            <summary>
+            Clears the object hash.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.GetObjectCacheID(System.Object,System.Type)">
+            <summary>
+            Gets the ID of an object in the hash.
+            </summary>
+            <param name="obj">Hashed object.</param>
+            <param name="objectType">The object Type</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.CacheObject(System.Object,System.Boolean)">
+            <summary>
+            Caches an object, and gives it a unique ID.
+            </summary>
+            <param name="obj">Object to cache.</param>
+            <param name="permanant">If true, the object is a permanant edition to the cache.</param>
+            <returns>Returns a unique ID to reference the object.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.GetCachedObject(System.Int32)">
+            <summary>
+            Gets an object from the hash given the unique id.
+            </summary>
+            <param name="uniqueId">Unique ID to retrieve.</param>
+            <returns>Returns the cached object.</returns>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.SetCachedObjectId(System.Object,System.Int32)">
+            <summary>
+            Sets an object ID for a cached object.
+            </summary>
+            <param name="obj">Object to store ID for.</param>
+            <param name="uniqueId">Unique ID of object.</param>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.Dispose">
+            <summary>
+            Disposes of the SerializerCache.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.Serialization.AltSerializer.SerializerCache.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the SerializerCache.
+            </summary>
+            <param name="disposeAll">If true, both managed and native resources are
+            disposed.</param>
+        </member>
+        <member name="T:System.Runtime.Serialization.AltSerializer.SerializerCache.SubHash">
+            <summary>
+            An object/objectID pair.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.SerializerCache.SubHash.StoredObject">
+            <summary>
+            Object reference to the hashed object.
+            </summary>
+        </member>
+        <member name="P:System.Runtime.Serialization.AltSerializer.SerializerCache.SubHash.ObjectID">
+            <summary>
+            Unique ID of the hashed object.
+            </summary>
+        </member>
+        <member name="T:InRule.Authoring.Threading.ProgressChangedEventArgs">
+            <summary>
+            Progress update information from a long running operation
+            </summary>
+        </member>
+        <member name="F:InRule.Authoring.Threading.ProgressChangedEventArgs.ProgressPercentage">
+            <summary>
+            The percentage completion of the operation out of 100% or null if the operation running time is nondeterministic (or undetermined)
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.AnonymousComparer.Create``1(System.Func{``0,``0,System.Int32})">
+            <summary>Example:AnonymousComparer.Create&lt;int&gt;((x, y) => y - x)</summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.AnonymousComparer.Create``2(System.Func{``0,``1})">
+            <summary>Example:AnonymousComparer.Create((MyClass mc) => mc.MyProperty)</summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.CustomFormatter.TryFormat(System.Object,System.String@)">
+            <summary>
+            Formats the argument if the type is supported, otherwise returns false
+            </summary>
+            <returns>true if format was handled, false otherwise</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.FileUtility.CopyOverRO(System.String,System.String,System.Boolean)">
+            <summary>
+            Copy specified file/uri-content to destination, clearing destination RO flag if nec.
+            </summary>
+            <param name="srcFileOrUri"></param>
+            <param name="destFile"></param>
+            <param name="onlyIfDifferent">Content is copied only if different from existing destination content</param>
+            <remarks>Creates targetdirs, clears target file attribs as nec.</remarks>
+            <returns>true if file copied (vs skipped since same).</returns>
+        </member>
+        <member name="T:InRule.Authoring.Threading.BackgroundWorkerEx">
+            <summary>
+            FW11 version of .NET 2.0 BackgroundWorker class.
+            </summary>
+            <remarks>F
+            Derived from http://www.code-magazine.com/article.aspx?quickid=0403071, by Juval Lowy
+            
+            It should be noted that this does behave slightly differently from the 
+            2.0 framework BackgroundWorker class as this implementation is more "abortable"
+            than the 2.0 version so we cannot just wholesale replace usages of this guy
+            </remarks>
+        </member>
+        <member name="T:InRule.Common.Utilities.HashCodeUtility">
+            <summary>
+            Methods to generate and combine persistable hash codes.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.HashCodeUtility.GetPersistableHashCode(System.String)">
+            <summary>
+            32-bit String hash function based on BKDR Hash Function.
+            Speed approaches/sometimes beats System.String.GetHashCode().
+            Consistently produces fewer collisions than System.String.GetHashCode().
+            Works well with small (&lt; 4 char) strings.
+            </summary>
+            <param name="s">String to hash.</param>
+            <returns>32-bit signed integer hash code.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.HashCodeUtility.GetPersistableHashCode(System.Guid)">
+            <summary>
+            Guid.GetHashCode() method taken from .NET Framework 2.0.
+            Mono's implementation differs, so including this for Rule Tracing consistency.
+            </summary>
+            <param name="guid">Guid to hash.</param>
+            <returns>32-bit signed integer hash code.</returns>
+        </member>
+        <member name="T:InRule.Common.Resources.InRuleResourceFile">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.AttemptedToCheckinNonExisitingSharedRevision">
+            <summary>
+              Looks up a localized string similar to Attemped to checkin a non exisiting revision of shared element: {0}.  Please consume latest revision of shared element..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotAddAutoGeneratedAssemblyDefsToExistingSchema">
+            <summary>
+              Looks up a localized string similar to Cannot add auto generated assembly defs to existing schema..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotCheckoutRuleAppIfAnyDefsCheckedOut">
+            <summary>
+              Looks up a localized string similar to The rule application cannot be checked out, because a child def is checked out by another user..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotDeleteLastRuleAppRevision">
+            <summary>
+              Looks up a localized string similar to Unable to delete the last revision of the rule application. Use DeleteAllRuleAppRevisions instead..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotLabelCheckedOutDef">
+            <summary>
+              Looks up a localized string similar to Cannot label a checked out def..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotModifyPriorDefRevision">
+            <summary>
+              Looks up a localized string similar to Cannot modify prior def revision..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotRefreshRevisionOfCheckedoutDef">
+            <summary>
+              Looks up a localized string similar to Cannot refresh revision of a checked out def..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CannotShareCheckedOutDef">
+            <summary>
+              Looks up a localized string similar to Cannot share a def checked out to another user..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.CatalogWarningCaption">
+            <summary>
+              Looks up a localized string similar to Catalog.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefCheckedOutByOtherUser">
+            <summary>
+              Looks up a localized string similar to Def is checked out by user &quot;{0}&quot;..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefCheckedOutInOtherRuleApp">
+            <summary>
+              Looks up a localized string similar to Def {0} is checked out in another rule application. Cannot complete check out operation..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefIsBoundToRuleApp">
+            <summary>
+              Looks up a localized string similar to {0} is bound to the given rule application so it cannot be removed from that rule application. Unbind the item from the rule application before attempting to remove it..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefIsDeprecated">
+            <summary>
+              Looks up a localized string similar to Def is deprecated and cannot be used..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefIsNotShareable">
+            <summary>
+              Looks up a localized string similar to Def is not shareable..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNameIsNotUnique">
+            <summary>
+              Looks up a localized string similar to Catalog contains def {0} with the same name: {1}.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNameSameInSchema">
+            <summary>
+              Looks up a localized string similar to Shared schema contains a def with the same name of type {0}. Change the name of the def in the consuming rule application..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNotCheckedOut">
+            <summary>
+              Looks up a localized string similar to Def is not checked out. Cannot complete check out operation..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNotCheckedOutAsExpected">
+            <summary>
+              Looks up a localized string similar to The validation check for expected checked out defs has failed..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNotExist">
+            <summary>
+              Looks up a localized string similar to Def does not exist in the catalog..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNotLatestRevision">
+            <summary>
+              Looks up a localized string similar to Def is not the latest revision..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNotPartOfRuleApp">
+            <summary>
+              Looks up a localized string similar to Def is not part of this rule application. In the case of a shared element being added to a rule application, the rule application must be checked in once before the shared element can be checked out..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefNotShareable">
+            <summary>
+              Looks up a localized string similar to Def cannot be shareable..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DefsCheckedOutInRuleapp">
+            <summary>
+              Looks up a localized string similar to A def in this rule application is checked out by user {0}. Cannot complete check out operation..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DeletePreviousCannotContainLatestRevision">
+            <summary>
+              Looks up a localized string similar to Delete previous revisions request cannot contain the latest revision of the rule application..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.DuplicateDefGuid">
+            <summary>
+              Looks up a localized string similar to A def with same guid already exists in the catalog..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.EditDefPermission">
+            <summary>
+              Looks up a localized string similar to Def {0} must be checked out to edit permissions..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.EditRuleappPermission">
+            <summary>
+              Looks up a localized string similar to Rule application container must be checked out to edit permissions..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.EditSchemaPermission">
+            <summary>
+              Looks up a localized string similar to Rule application schema must be checked out to edit permissions..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.EntityRulesetCannotBeSharedIndependently">
+            <summary>
+              Looks up a localized string similar to Entity based ruleset cannot be shared as an independent ruleset..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.IndependentRulesetCannotBeSharedAsEntityRuleset">
+            <summary>
+              Looks up a localized string similar to Independent ruleset cannot be shared as an entity ruleset,.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.LabelAlreadyExists">
+            <summary>
+              Looks up a localized string similar to Label already exists in the catalog..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.LabelDoesNotExist">
+            <summary>
+              Looks up a localized string similar to Label does not exist in the catalog..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.LabelNotAppliedToDef">
+            <summary>
+              Looks up a localized string similar to Label has not been applied to def..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.MasterRuleAppHasChildDefs">
+            <summary>
+              Looks up a localized string similar to Rule application has child elements..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.MustCheckoutDefInMasterRuleApp">
+            <summary>
+              Looks up a localized string similar to Def {0} is bound to another rule application, and can be checked out in that rule application only..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.MustCheckoutSchemaInMasterRuleApp">
+            <summary>
+              Looks up a localized string similar to Schema is bound to another rule application, and can be checked out in that rule application only..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.NonSchemaChildDefCannotLiveInsideSchema">
+            <summary>
+              Looks up a localized string similar to NonSchema ChildDef CannotLive Inside Schema,.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.PublicRevisionNotExist">
+            <summary>
+              Looks up a localized string similar to Public revision does not exist..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppCheckedOut">
+            <summary>
+              Looks up a localized string similar to Rule application has been checked out..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppCheckedOutByOtherUser">
+            <summary>
+              Looks up a localized string similar to Rule application is checked out by user {0}..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleappCheckoutForUnshare">
+            <summary>
+              Looks up a localized string similar to Rule application must be checked out to unshare def or schema..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppHasCorrelatedStaleDefs">
+            <summary>
+              Looks up a localized string similar to Rule application does not contain the latest revisions of all non-shared elements. Please get latest revision before attempting the operation..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppHasNoCheckouts">
+            <summary>
+              Looks up a localized string similar to Rule application has no checked out defs..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleApplicationHasNoPreviousRevision">
+            <summary>
+              Looks up a localized string similar to Rule application must contain at least one previous revision to delete..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppNameIsNotUnique">
+            <summary>
+              Looks up a localized string similar to Catalog contains a rule application with the same name..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppNotActive">
+            <summary>
+              Looks up a localized string similar to Cannot perform operation. Rule application is not active, but can be made so from Catalog Manager..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppNotCheckedOut">
+            <summary>
+              Looks up a localized string similar to Rule application is not checked out..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppNotExist">
+            <summary>
+              Looks up a localized string similar to Rule application does not exist in the catalog..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppNotLatestRevision">
+            <summary>
+              Looks up a localized string similar to Rule application is not the latest revision..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppNotVisibleToUser">
+            <summary>
+              Looks up a localized string similar to Rule application is not visible to user..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppRevisionNotExist">
+            <summary>
+              Looks up a localized string similar to Rule application revision does not exist in the catalog..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.RuleAppSchemaCheckoutRequiresRuleAppCheckout">
+            <summary>
+              Looks up a localized string similar to To check out schema, the containing rule application must be checked out..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.SavedWorkspaceVersionIsNotLatest">
+            <summary>
+              Looks up a localized string similar to Newer version of this rule application already exists in the workspace for this user..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.SchemaChildDefCannotLiveOutsideSchema">
+            <summary>
+              Looks up a localized string similar to Schema ChildDef Cannot Live Outside Schema,.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.SchemaIsNotShareable">
+            <summary>
+              Looks up a localized string similar to Schema in this rule application cannot be shareable. Probable cause: schema includes a webservice endpoint linked to a .NET assembly..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.SchemaStateWasNotIdentified">
+            <summary>
+              Looks up a localized string similar to Schema state could not by identified during Def processing..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.SharedDefIsDeprecated">
+            <summary>
+              Looks up a localized string similar to The shared def cannot be consumed because it has been deprecated. Def ID - {0}.
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.SharingDefTypeNotMatchSharedDefType">
+            <summary>
+              Looks up a localized string similar to Sharing def type did not matche the shared def type..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.StaleDefsWereAlreadyUpdatedByAnotherUser">
+            <summary>
+              Looks up a localized string similar to Stale defs were already updated by another user..
+            </summary>
+        </member>
+        <member name="P:InRule.Common.Resources.InRuleResourceFile.WriteLockAcquisitionTimeout">
+            <summary>
+              Looks up a localized string similar to The database was locked due to another write operation in progress. Please wait for the other write operation to complete and then attempt the operation again..
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Resources.ResourceLoader.GetString(InRule.Common.Resources.ResourceStrings)">
+            <summary>
+            Gets the value of the System.String resource localized for the specified culture.
+            Currently it takes the current thread culture.
+            </summary>
+            <param name="name">name: The name of the resource to get.</param>
+            <returns>Returns:The value of the resource localized for the specified culture. If a best match is not possible, null is returned.</returns>
+        </member>
+        <member name="T:InRule.Common.Resources.ResourceStrings">
+            <summary>
+            Resource strings
+            </summary>
+        </member>
+        <member name="T:InRule.Authoring.Threading.ProgressUpdateEventHandler">
+            <summary>
+            A callback to handle progress updates from a long running operation
+            </summary>
+            <param name="sender">The originator of the progress update</param>
+            <param name="e">Progress update information from a long running operation</param>
+        </member>
+        <member name="T:InRule.Authoring.Threading.ProgressUpdateEventArgs">
+            <summary>
+            Progress update information from a long running operation
+            </summary>
+        </member>
+        <member name="F:InRule.Authoring.Threading.ProgressUpdateEventArgs.DisplayText">
+            <summary>
+            A message describing the progress update
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.AreClose(System.Double,System.Double)">
+            <summary>
+            AreClose - Returns whether or not two doubles are "close".  That is, whether or 
+            not they are within epsilon of each other.  Note that this epsilon is proportional
+            to the numbers themselves to that AreClose survives scalar multiplication.
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the AreClose comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.LessThan(System.Double,System.Double)">
+            <summary>
+            LessThan - Returns whether or not the first double is less than the second double.
+            That is, whether or not the first is strictly less than *and* not within epsilon of
+            the other number.  Note that this epsilon is proportional to the numbers themselves
+            to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the LessThan comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.GreaterThan(System.Double,System.Double)">
+            <summary>
+            GreaterThan - Returns whether or not the first double is greater than the second double.
+            That is, whether or not the first is strictly greater than *and* not within epsilon of
+            the other number.  Note that this epsilon is proportional to the numbers themselves
+            to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the GreaterThan comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.LessThanOrClose(System.Double,System.Double)">
+            <summary>
+            LessThanOrClose - Returns whether or not the first double is less than or close to
+            the second double.  That is, whether or not the first is strictly less than or within
+            epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+            themselves to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the LessThanOrClose comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.GreaterThanOrClose(System.Double,System.Double)">
+            <summary>
+            GreaterThanOrClose - Returns whether or not the first double is greater than or close to
+            the second double.  That is, whether or not the first is strictly greater than or within
+            epsilon of the other number.  Note that this epsilon is proportional to the numbers 
+            themselves to that AreClose survives scalar multiplication.  Note,
+            There are plenty of ways for this to return false even for numbers which
+            are theoretically identical, so no code calling this should fail to work if this 
+            returns false.  This is important enough to repeat:
+            NB: NO CODE CALLING THIS FUNCTION SHOULD DEPEND ON ACCURATE RESULTS - this should be
+            used for optimizations *only*.
+            </summary>
+            <returns>
+            bool - the result of the GreaterThanOrClose comparision.
+            </returns>
+            <param name="value1"> The first double to compare. </param>
+            <param name="value2"> The second double to compare. </param>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.IsOne(System.Double)">
+            <summary>
+            IsOne - Returns whether or not the double is "close" to 1.  Same as AreClose(double, 1),
+            but this is faster.
+            </summary>
+            <returns>
+            bool - the result of the AreClose comparision.
+            </returns>
+            <param name="value"> The double to compare to 1. </param>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.IsNumber(System.Double)">
+            <summary>
+            Returns whether the specified numeric value is a valid non-infinite number.
+            </summary>
+            <param name="value">The numeric value to examine.</param>
+            <returns>
+            <c>true</c> if specified numeric value is a valid non-infinite number; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.DoubleToInt(System.Double)">
+            <summary>
+            Converts a double value to an integer by rounding it first.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>The converted value.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.DoubleUtility.SafeDoubleToInt(System.Double)">
+            <summary>
+            Returns the rounded integer value of the double if it is a number; otherwise, <c>int.MaxValue</c>.
+            </summary>
+            <param name="value">The numeric value to examine.</param>
+            <returns>The result.</returns>
+        </member>
+        <member name="T:InRule.Common.Utilities.DateConversionUtil">
+            <summary>
+            General conversion utilities.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.DateConversionUtil.ConvertToUnspecifiedDateTime(System.DateTime)">
+            <summary>
+            Conversion function provided for inrule interpretation of inter-kind conversions, since .NET intepretation is inconsistent wrt Unspecified kind (including not even providing a .ToUnspecifiedDateTime() method).
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.DateConversionUtil.ConvertToUtcDateTime(System.DateTime)">
+            <summary>
+            Conversion function provided for inrule interpretation of inter-kind conversions, since .NET intepretation is inconsistent wrt Unspecified kind (including not even providing a .ToUnspecifiedDateTime() method).
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.DateConversionUtil.ConvertToLocalDateTime(System.DateTime)">
+            <summary>
+            Conversion function provided for inrule interpretation of inter-kind conversions, since .NET intepretation is inconsistent wrt Unspecified kind (including not even providing a .ToUnspecifiedDateTime() method).
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.DateConversionUtil.DateTimesAreEqual(System.DateTime,System.DateTime)">
+            <summary>
+            Reliably compare two datetimes for equality taking "kind" timezone offset into account
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.DateConversionUtil.CompareDateTimes(System.DateTime,System.DateTime)">
+            <summary>
+            Reliably compare two datetimes taking "kind" timezone offset into account
+            </summary>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="T:InRule.Common.Utilities.CrcCalc">
+             <summary>
+             Tool to calculate and add CRC codes to a string. Adapted from original author's below.
+            
+             http://www.codeproject.com/csharp/marcelcrcencoding.asp
+            
+             This is a port of a c prog available from below, which also has an online crc calc:
+            		http://zorc.breitbandkatze.de/crc.html
+            
+             ***************************************************************************
+             Copyright (c) 2003 Thoraxcentrum, Erasmus MC, The Netherlands.
+            
+             Written by Marcel de Wijs with help from a lot of others,
+             especially Stefan Nelwan
+            
+             This code is for free. I ported it from several different sources to C#.
+            
+             For comments: Marcel_de_Wijs@hotmail.com
+             ***************************************************************************
+             </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.CrcCalc.Add(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            This should reduce the number of Add(Byte b) method calls
+            </summary>
+            <param name="buffer">Array of bytes to hash.</param>
+            <param name="startIndex">Position in array to start hashing.</param>
+            <param name="count">Total number of bytes to hash from startIndex position.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.CrcCalc.Add(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Wrapper to Add(Char c) to allow buffers
+            </summary>
+            <param name="buffer">Array of characters to hash.</param>
+            <param name="startIndex">Position in array to start hashing.</param>
+            <param name="count">Total number of characters to hash from startIndex position.</param>
+        </member>
+        <member name="F:InRule.Common.Utilities.DebugUtil.IsEnabled">
+            <summary>
+            Turn assertion behaviors on or off globally
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.ReflectionUtils.IsConstructedNullableType(System.Type)">
+            <summary>
+            Indicates whether the type is a constructed Nullable type.
+            </summary>
+            <param name="type">The type to inspect.</param>
+            <returns>True if <paramref name="type"/> is a constructed nullable type.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ReflectionUtils.IsTypeIntrinsic(System.Type)">
+            <summary>
+            Determines whether the given type is one that is considered "intrinsic"
+            by the rule engine.
+            </summary>
+            <param name="type">The type to test.</param>
+            <returns>True if the method is considered intrinsic, false if not.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ReflectionUtils.GetNullableTypeArgument(System.Type)">
+            <summary>
+            Gets the generic type argument of a nullable type. 
+            </summary>
+            <param name="type">The Nullable type to inspect.</param>
+            <returns>The type argument for the nullable type, or null if the type is not constructed.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ReflectionUtils.GetAssemblyName(System.Reflection.Assembly)">
+            <summary>
+            If you have:
+               Assembly assembly = Assembly.GetExecutingAssembly();
+            Silverlight does not allow access of:
+               string name = assembly.GetName(); //method access disallowed
+            But *will* allow:
+               AssemblyName assemblyName = new AssemblyName(assembly.FullName);
+            
+            Note: the AssemblyName returned contains a PublicKeyToken, but not
+            a whole PublicKey
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.ReflectionUtils.GetPublicKeyOrToken(System.Reflection.AssemblyName)">
+            <summary>
+            Used to get PublicKey or PublicKeyToken (Silverlight compatible) for internal call verifications<see cref="M:InRule.Common.Utilities.ReflectionUtils.GetAssemblyName(System.Reflection.Assembly)"/>
+            </summary>
+        </member>
+        <member name="T:InRule.Common.Utilities.StringCompare">
+            <summary>
+            Performs various string comparison operations.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.StringCompare.AreEqual(System.String,System.String,System.Boolean)">
+            <summary>
+            Performs culture-neutral string equality comparison.
+            </summary>
+            <param name="s1">The first string.</param>
+            <param name="s2">The second string.</param>
+            <param name="ignoreCase">Flag indicating whether the comparison is case-sensitive or not.</param>
+            <returns>True if the two strings are equivalent.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.StringCompare.Contains(System.String,System.String,System.Boolean)">
+            <summary>
+            Performs culture-neutral, ordinal check indicating whether the specified substring occurs within the value.
+            </summary>
+            <param name="value">The string that may contain a substring.</param>
+            <param name="subString">The substring to check for.</param>
+            <param name="ignoreCase">Flag indicating whether the check is case-sensitive or not.</param>
+            <returns>True if the substring exists within the value.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.StringCompare.Compare(System.String,System.String,System.Boolean)">
+            <summary>
+            Performs culture-neutral string equality comparison.
+            </summary>
+            <param name="s1">The first string.</param>
+            <param name="s2">The second string.</param>
+            <param name="ignoreCase">Flag indicating whether the comparison is case-sensitive or not.</param>
+            <returns>1 if s1 is greater; -1 if s2 is greater, or 0 if equal.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.StringCompare.Compare(System.String,System.String,System.Boolean,System.Globalization.CultureInfo)">
+            <summary>
+            Performs culture-neutral string equality comparison.
+            </summary>
+            <param name="s1">The first string.</param>
+            <param name="s2">The second string.</param>
+            <param name="ignoreCase">Flag indicating whether the comparison is case-sensitive or not.</param>
+            <param name="culture">The culture to use for the comparison.</param>
+            <returns>1 if s1 is greater; -1 if s2 is greater, or 0 if equal.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.GetTempFileName">
+            <summary>
+            Creates a uniquely named, zero-byte temporary file on disk and returns the full path of that file. The file will be in the General category and purged when the AppDomain unloads.
+            </summary>
+            <returns>A String containing the full path of the temporary file.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.GetTempFileName(InRule.Common.Utilities.TempStore.TempFileCategory)">
+            <summary>
+            Creates a uniquely named, zero-byte temporary file on disk and returns the full path of that file. The file's directory will determined by the category specified.
+            </summary>
+            <param name="category">The category which maps to a particular subdirectory of the InRule temp directory.</param>
+            <returns>A String containing the full path of the temporary file.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.GetTempPath">
+            <summary>
+            Returns the path of the InRule General temporary folder.
+            </summary>
+            <returns>A String containing the path information of a temporary directory.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.GetTempPath(InRule.Common.Utilities.TempStore.TempFileCategory)">
+            <summary>
+            Returns the path of an InRule temporary folder determined by the category.
+            </summary>
+            <param name="category">The category which maps to a particular subdirectory of the InRule temp directory.</param>
+            <returns>A String containing the path information of a temporary directory.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.Purge(InRule.Common.Utilities.TempStore.TempFileCategory)">
+            <summary>
+            Deletes all files in the directory determined by the specified category.  If the category is General, the directory will also be deleted.
+            </summary>
+            <param name="category">The category which maps to a particular subdirectory of the InRule temp directory.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.GetDisposableTempFile">
+            <summary>
+            Creates a uniquely named, zero-byte temporary file on disk and returns an IDisposable object representing the file. The file will be in the General category and purged when the AppDomain unloads if not disposed first.
+            </summary>
+            <returns>A new instance of <see cref="T:InRule.Common.Utilities.TempStore.DisposableTempFile"/> representing the temporary file.</returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.TempStore.GetDisposableTempFile(InRule.Common.Utilities.TempStore.TempFileCategory)">
+            <summary>
+            Creates a uniquely named, zero-byte temporary file on disk and returns an IDisposable object representing the file. The file's directory will determined by the category specified.
+            </summary>
+            <param name="category">The category which maps to a particular subdirectory of the InRule temp directory.</param>
+            <returns>A new instance of <see cref="T:InRule.Common.Utilities.TempStore.DisposableTempFile"/> representing the temporary file.</returns>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.Temp">
+            <summary>
+            General short-lived temp files created by GetTempFileName() stored in an AppDomain-specific directory and cleaned up on AppDomain unload.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.Cache">
+            <summary>
+            Long-lived temp files stored in an AppDomain-specific directory and cleaned up on AppDomain unload.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.UnitTest">
+            <summary>
+            Files created specifically for our unit tests, outside of irSDK.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.Debug">
+            <summary>
+            Debug output and trace files.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.Proxies">
+            <summary>
+            Proxy assemblies and related files.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.WorkingMemory">
+            <summary>
+            Working memory serialization disk caches.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.Logging">
+            <summary>
+            All log files created by irSDK.
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Utilities.TempStore.TempFileCategory.Interop">
+            <summary>
+            Dynamically loaded Interop assemblies which may persist indefinitely.
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.Utility.RenameNode(System.Xml.XmlNode,System.String)">
+            <summary>
+            Renames localname of node (same namespace assumed).
+            </summary>
+            <param name="node"></param>
+            <param name="localName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.Utility.ConvertDosWildCardToRegexPattern(System.String)">
+            <summary>
+            Convert DOS wildcard expression (*, ?) to regex.
+            </summary>
+            <remarks>
+            Is case-insensitive regex.
+            The single ? sometimes matches 0/1 chrs in DOS; here, it consistently matches exactly one.
+            </remarks>
+            <param name="dosWildcardExpression"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.Utility.SplitStringOnRegex(System.String,System.Text.RegularExpressions.Regex,System.Boolean)">
+            <summary>
+            Splits a string on a regex pattern pivot rather than a char pivot
+            </summary>
+            <param name="s">string to be split</param>
+            <param name="pattern">pattern describing valid pivot values</param>
+            <param name="includeMatches">whether to return pivot values in the result</param>
+            <returns>an array of strings split on valid pivot values</returns>
+        </member>
+        <member name="T:InRule.Common.Utilities.XmlSerializationUtility">
+            <summary>
+            XML serialization  utility methods
+            </summary>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.XmlEncode(System.String)">
+            <summary>
+            Encode string for storage as xml string value
+            </summary>
+            <remarks>
+            Supplements XmlWriter which does not check for valid Xml content
+            </remarks>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.FormatXmlString(System.String,System.Boolean)">
+            <summary>
+            Format xml string, specifying whether to use indentation
+            </summary>
+            <param name="xml"></param>
+            <param name="useFormatting"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.StringToXmlWriter(System.String,System.Xml.XmlWriter)">
+            <summary>
+            Write xml string to xml writer
+            </summary>
+            <param name="xml"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetStringFromXmlFile(System.IO.FileInfo)">
+            <summary>
+            Get xml string from xml file
+            </summary>
+            <param name="inFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetStringFromXmlFile(InRule.Common.Utilities.FileSystem.FileInfo)">
+            <summary>
+            Get xml string from xml file
+            </summary>
+            <param name="inFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.FileToXmlWriter(System.String,System.Xml.XmlWriter)">
+            <summary>
+            Write xml file to xml writer
+            </summary>
+            <param name="xmlFile"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.CopyObject(System.Object)">
+            <overloads>
+            Copy object (using Xml serialization)
+            </overloads>
+            <summary>
+            Copy object (using Xml serialization)
+            </summary>
+            <param name="fromObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.CopyObject(System.Object,System.Type)">
+            <summary>
+            Copy object using XML Serialization, specifying a target type.
+            </summary>
+            <param name="fromObject"></param>
+            <param name="targetType"></param>
+            <returns></returns>
+            <remarks>
+            If targetType is an XmlInclude attribute of fromObject type, then that type is used for the returned object.
+            </remarks>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.CopyObject(System.Object,System.Type,System.Boolean)">
+            <summary>
+            Copy object using XML Serialization, specifying a target type, and whether to modify namespace attribs.
+            </summary>
+            <param name="fromObject"></param>
+            <param name="targetType"></param>
+            <param name="modifyNamespaceAttribs"></param>
+            <returns></returns>
+            <remarks>
+            If targetType is an XmlInclude attribute of fromObject type, then that type is used for the returned object.
+            </remarks>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.CopyObjectCastingDownToBaseType(System.Object,System.Type)">
+            <summary>
+            Copy object using XML Serialization, casting down to the specified target type.
+            </summary>
+            <param name="fromObject"></param>
+            <param name="targetType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetRenamespacedXmlToWriter(System.Xml.XmlReader,System.Xml.XmlWriter,System.Type)">
+            <summary>
+            Change namespacing of xml representation of a type in order to facilitate running xml deserializer on it.
+            </summary>
+            <remarks>
+            <para>This currently assumes non-custom xml serialization (using the default XML serializer for the specified type). Either an "XmlRoot" or "XmlType" tag is required specifying the Namespace to be used.</para>
+            <para>It also currently assumes that the input xml does not have namespace prefixes on the level 0 (xmlroot scenario) or level1 (xmltype scenario) elements.</para>
+            </remarks>
+            <param name="xmlIn">Reader open on the input xml.</param>
+            <param name="xmlout">Writer open on the output xml.</param>
+            <param name="destType">Type to be deserialized to <paramref name="xmlout"/>.</param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetObjectFromXmlString(System.String,System.Type)">
+            <summary>
+            Get object from XML string
+            </summary>
+            <param name="xml"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToXML(System.Object,System.Boolean)">
+            <overloads>
+            Get xml string from object instance
+            </overloads>
+            <summary>
+            Get xml string from object instance, specifying whether to use formatting
+            </summary>
+            <param name="obj"></param>
+            <param name="useFormatting"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToStream(System.Object,System.IO.StreamWriter,System.Boolean)">
+            <overloads>
+            Get xml string from object instance
+            </overloads>
+            <summary>
+            Get xml string from object instance, specifying whether to use formatting
+            </summary>
+            <param name="obj"></param>
+            <param name="output"></param>
+            <param name="useFormatting"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToXML(System.Object)">
+            <summary>
+            Get xml string from object instance
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToXmlWriter(System.Xml.XmlWriter,System.Object)">
+            <overloads>
+            Write out object instance to xml writer
+            </overloads>
+            <summary>
+            Write out object instance to xml writer
+            </summary>
+            <param name="writer"></param>
+            <param name="o"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToXmlWriter(System.Xml.XmlWriter,System.Object,System.String)">
+            <summary>
+            Write out object instance to xml writer, specifying whether to replace ns with another
+            </summary>
+            <param name="writer"></param>
+            <param name="o"></param>
+            <param name="nsToUse"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToXmlWriter(System.Xml.XmlWriter,System.Object,System.Boolean,System.String)">
+            <summary>
+            Write out object instance to xml writer, specifying whether to replace ns with another
+            </summary>
+            <param name="writer"></param>
+            <param name="o"></param>
+            <param name="stripDefaultNs"></param>
+            <param name="nsToUse"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToStream(System.Object,System.IO.StreamWriter)">
+            <overloads>
+            Write out object instance to stream
+            </overloads>
+            <summary>
+            Write out object instance to stream
+            </summary>
+            <param name="output"></param>
+            <param name="obj"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.ObjectToStream(System.Object,System.IO.StreamWriter,System.Boolean,System.String)">
+            <summary>
+            Write out object instance to stream, specifying whether to replace ns with another
+            </summary>
+            <param name="output"></param>
+            <param name="obj"></param>
+            <param name="stripDefaultNs"></param>
+            <param name="nsToUse"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetObjectFromFile(System.String,System.Type)">
+            <summary>
+            Get object instance from xml file
+            </summary>
+            <param name="filename"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetObjectFromStream(System.IO.Stream,System.Type)">
+            <summary>
+            Get object instance from xml stream
+            </summary>
+            <param name="stream"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.GetObjectFromXmlReader(System.Xml.XmlReader,System.Type)">
+            <summary>
+            Get object instance from xml reader
+            </summary>
+            <param name="reader"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.SaveXmlReaderToFile(System.String,System.Xml.XmlReader)">
+            <summary>
+            Save xml reader stream to file
+            </summary>
+            <param name="filename"></param>
+            <param name="xrdr"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.SaveObjectToFile(System.String,System.Object)">
+            <summary>
+            Save object instance to xml file
+            </summary>
+            <param name="filename"></param>
+            <param name="obj"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.SaveObjectToStream(System.IO.Stream,System.Object)">
+            <summary>
+            Save object instance to stream
+            </summary>
+            <param name="stream"></param>
+            <param name="obj"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.SaveXmlStringToFile(System.String,System.String)">
+            <summary>
+            Save xml string to xml file
+            </summary>
+            <param name="filename"></param>
+            <param name="xml"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.FormatXmlStringFromFile(System.String,System.Boolean)">
+            <summary>
+            Get xml string from xml file, optionally specifying indented formatting
+            </summary>
+            <param name="filePath"></param>
+            <param name="useFormatting"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.FormatXmlStringFromFileToFile(System.IO.FileInfo,System.IO.FileInfo,System.Boolean)">
+            <summary>
+            Persist an xml file as formatted or unformatted as specified, from another xml file
+            </summary>
+            <param name="fromFile"></param>
+            <param name="toFile"></param>
+            <param name="useFormatting"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlSerializationUtility.FormatXmlStringFromFileToFile(InRule.Common.Utilities.FileSystem.FileInfo,InRule.Common.Utilities.FileSystem.FileInfo,System.Boolean)">
+            <summary>
+            Persist an xml file as formatted or unformatted as specified, from another xml file
+            </summary>
+            <param name="fromFile"></param>
+            <param name="toFile"></param>
+            <param name="useFormatting"></param>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlUtility.Copy``1(``0)">
+            <summary>
+            Copy object (using Xml serialization)
+            </summary>
+            <param name="fromObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlUtility.CopyObject(System.Object)">
+            <summary>
+            Copy object (using Xml serialization)
+            </summary>
+            <param name="fromObject"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlUtility.CopyObject(System.Object,System.Type,System.Boolean)">
+            <summary>
+            Copy object using XML Serialization, specifying a target type, and whether to modify namespace attribs.
+            </summary>
+            <param name="fromObject"></param>
+            <param name="targetType"></param>
+            <param name="modifyNamespaceAttribs"></param>
+            <returns></returns>
+            <remarks>
+            If targetType is an XmlInclude attribute of fromObject type, then that type is used for the returned object.
+            </remarks>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlUtility.CopyObjectCastingDownToBaseType(System.Object,System.Type)">
+            <summary>
+            Copy object using XML Serialization, casting down to the specified target type.
+            </summary>
+            <param name="fromObject"></param>
+            <param name="targetType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlUtility.GetObjectFromXmlString(System.String,System.Type)">
+            <summary>
+            Get object from XML string
+            </summary>
+            <param name="xml"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:InRule.Common.Utilities.XmlUtility.GetObjectFromXmlString(System.String,System.Type,System.Boolean)">
+            <summary>
+            Get object from XML string
+            </summary>
+            <param name="xml"></param>
+            <param name="objectType"></param>
+            <param name="modifyNamespaceAttribs"></param>
+            <returns></returns>
+        </member>
+        <member name="F:InRule.Common.Xml.Proxy.ProxyLiterals.AssemblyNames.System">
+            <summary>
+            System.dll (as opposed to mscorlib.dll)
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Xml.Proxy.ProxyLiterals.AssemblyNames.Xml">
+            <summary>
+            System.Xml.dll
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Xml.Proxy.ProxyLiterals.AssemblyNames.ServiceModel">
+            <summary>
+            System.ServiceModel.dll
+            </summary>
+        </member>
+        <member name="F:InRule.Common.Xml.Proxy.ProxyLiterals.AssemblyNames.RuntimeSerialization">
+            <summary>
+            System.Runtime.Serialization.dll
+            </summary>
+        </member>
+        <member name="T:InRule.Repository.Attributes.EnumListDisplayItemAttribute">
+            <summary>
+            Tags an enum field to be included in lists (e.g., combo), and optionally provides an optional different list-display name.
+            </summary>
+        </member>
+        <member name="M:InRule.Repository.Attributes.EnumListDisplayItemAttribute.#ctor(System.String)">
+            <summary>
+            Tag an enum field to be included in lists (e.g., combo) specifying a different list-display name for field.
+            </summary>
+            <param name="displayName"></param>
+        </member>
+        <member name="T:Microsoft.XmlDiffPatch.XmlDiffOptions">
+            <summary>
+            Options for comparing XML documents. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.XmlDiffPatch.XmlDiffAlgorithm">
+            <summary>
+              Types of algorithms that can be used for comparing XML documents by XmlDiff. Auto means XmlDiff will
+              automatically decide which algorithm to use for the particular case depending on the assumed number 
+              of changes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.XmlDiffPatch.XmlDiff">
+            <summary>
+               Compares two documents or fragments. 
+            </summary>
+        </member>
+        <member name="F:Microsoft.XmlDiffPatch.XmlDiff.NamespaceUri">
+            <summary>
+               XmlDiff namespace. The diffgram nodes belongs to this namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.#ctor">
+            <summary>
+               Constructs XmlDiff object with default options.
+            </summary>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.#ctor(Microsoft.XmlDiffPatch.XmlDiffOptions)">
+            <summary>
+               Constructs XmlDiff object with the given options. The values of XmlDiffOptions
+               may be combined using the operator '|'.
+            </summary>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.Compare(System.String,System.String,System.Boolean)">
+            <summary>
+               Compares two XML documents or fragments.
+            </summary>
+            <param name="sourceFile">The original xml document or fragment filename</param>
+            <param name="changedFile">The changed xml document or fragment filename.</param>
+            <param name="bFragments">If true, the passed files contain xml fragments; otherwise the files must contain xml documents.</param>
+            <returns>True, if the documents/fragments are identical.</returns>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.Compare(System.String,System.String,System.Boolean,System.Xml.XmlWriter)">
+            <summary>
+               Compares two XML documents or fragments. 
+               If the diffgramWriter parameter is not null it will contain the list of changes 
+               between the two XML documents/fragments (diffgram).
+            </summary>
+            <param name="sourceFile">The original xml document or fragment filename</param>
+            <param name="changedFile">The changed xml document or fragment filename.</param>
+            <param name="bFragments">If true, the passed files contain xml fragments; otherwise the files must contain xml documents.</param>
+            <param name="diffgramWriter">XmlWriter object for returning the list of changes (diffgram).</param>
+            <returns>True, if the documents/fragments are identical.</returns>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.Compare(System.Xml.XmlReader,System.Xml.XmlReader)">
+            <summary>
+               Compares two XML documents or fragments.
+            </summary>
+            <param name="sourceReader">XmlReader representing the original xml document or fragment.</param>
+            <param name="changedReader">XmlReader representing the changed xml document or fragment.</param>
+            <returns>True, if the documents/fragments are identical.</returns>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.Compare(System.Xml.XmlReader,System.Xml.XmlReader,System.Xml.XmlWriter)">
+            <summary>
+               Compares two XML documents or fragments.
+               If the diffgramWriter parameter is not null it will contain the list of changes 
+               between the two XML documents/fragments (diffgram).
+            </summary>
+            <param name="sourceReader">XmlReader representing the original xml document or fragment.</param>
+            <param name="changedReader">XmlReader representing the changed xml document or fragment.</param>
+            <param name="diffgramWriter">XmlWriter object for returning the list of changes (diffgram).</param>
+            <returns>True, if the documents/fragments are identical.</returns>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.Compare(System.Xml.XmlNode,System.Xml.XmlNode)">
+            <summary>
+               Compares two XML nodes.
+               If the diffgramWriter parameter is not null it will contain the list of changes 
+               between the two XML documents/fragments (diffgram).
+            </summary>
+            <param name="sourceNode">Original XML node</param>
+            <param name="changedNode">Changed XML node</param>        
+            <returns>True, if the documents/fragments are identical.</returns>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.Compare(System.Xml.XmlNode,System.Xml.XmlNode,System.Xml.XmlWriter)">
+            <summary>
+               Compares two XML nodes.
+               If the diffgramWriter parameter is not null it will contain the list of changes 
+               between the two XML documents/fragments (diffgram).
+            </summary>
+            <param name="sourceNode">Original XML node</param>
+            <param name="changedNode">Changed XML node</param>
+            <param name="diffgramWriter">XmlWriter object for returning the list of changes (diffgram).</param>
+            <returns>True, if the documents/fragments are identical.</returns>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.ParseOptions(System.String)">
+            <summary>
+               Translates string representation of XmlDiff options into XmlDiffOptions enum.
+            </summary>
+            <param name="options">Value of the 'options' attribute of the 'xd:xmldiff' element in diffgram.</param>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlDiff.VerifySource(System.Xml.XmlNode,System.UInt64,Microsoft.XmlDiffPatch.XmlDiffOptions)">
+            <summary>
+               Given a diffgram, this method verifies whether the given document/node is the original
+               source document/node for the diffgram. 
+            </summary>
+            <param name="node">Document/node to be verified.</param>
+            <param name="hashValue">Value of the 'srcDocHash' attribute of the 'xd:xmldiff' element in diffgram.
+            This is the hash value of the original source document. The document/node is verified if it yields
+            the same hash value.</param>
+            <param name="options">XmlDiff options selected when the document/node was compared. The hash value 
+            of the document/node depends on these options.</param>
+            <returns>True if the given document is the original source document for the diffgram.</returns>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnoreChildOrder">
+            <summary>
+               If true, the order of child nodes of each element will be ignored when comparing 
+               the documents/fragments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnoreComments">
+            <summary>
+               If true, all comments in the compared documents/fragments will be ignored.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnorePI">
+            <summary>
+               If true, all processing instructions in the compared documents/fragments will be ignored.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnoreWhitespace">
+            <summary>
+               If true, all whitespace nodes in the compared documents/fragments will be ignored. Also, all
+               text nodes and values of attributes will be normalized; whitespace sequences will be replaced
+               by single space and beginning and trailing whitespaces will be trimmed.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnoreNamespaces">
+            <summary>
+               If true, the namespaces will be ignored when comparing the names of elements and attributes.
+               This also mean that the prefixes will be ignored too as if the IgnorePrefixes option is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnorePrefixes">
+            <summary>
+               If true, the prefixes will be ignored when comparing the names of elements and attributes. 
+               The namespaces will not ne ignored unless IgnoreNamespaces flag is true.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnoreXmlDecl">
+            <summary>
+               If true, the xml declarations will not be compared.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.IgnoreDtd">
+            <summary>
+               If true, the xml declarations will not be compared.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.Options">
+            <summary>
+               Options used when comparing xml documents/fragments.
+            </summary>
+        </member>
+        <member name="P:Microsoft.XmlDiffPatch.XmlDiff.Algorithm">
+            <summary>
+               Algorithm that will be used for XML comparison.
+            </summary>
+        </member>
+        <member name="T:Microsoft.XmlDiffPatch.XmlPatch">
+            <summary>
+               XML Patch modifies XML documents or nodes according to the XDL diffgram created by XML Diff.  
+            </summary>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlPatch.Patch(System.Xml.XmlDocument,System.Xml.XmlReader)">
+            <summary>
+               Reads the XDL diffgram from the diffgramFileName and modifies the original XML document
+               sourceDoc according to the changes described in the diffgram. 
+            </summary>
+            <param name="sourceDoc">The original xml document</param>
+            <param name="diffgram">XmlReader for the XDL diffgram.</param>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlPatch.Patch(System.String,System.IO.Stream,System.Xml.XmlReader)">
+            <summary>
+               Reads the XDL diffgram from the diffgramFileName and modifies the original XML document
+               sourceDoc according to the changes described in the diffgram. 
+            </summary>
+            <param name="sourceFile">The original xml document</param>
+            <param name="outputStream"></param>
+            <param name="diffgram">XmlReader for the XDL diffgram.</param>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlPatch.Patch(System.Xml.XmlReader,System.IO.Stream,System.Xml.XmlReader)">
+            <summary>
+               Reads the XDL diffgram from the diffgramFileName and modifies the original XML document
+               sourceDoc according to the changes described in the diffgram. 
+            </summary>
+            <param name="sourceReader">The original xml document</param>
+            <param name="outputStream"></param>
+            <param name="diffgram">XmlReader for the XDL diffgram.</param>
+        </member>
+        <member name="M:Microsoft.XmlDiffPatch.XmlPatch.Patch(System.Xml.XmlNode@,System.Xml.XmlReader)">
+            <summary>
+               Reads the XDL diffgram from the diffgramFileName and modifies the original XML document
+               sourceDoc according to the changes described in the diffgram. 
+            </summary>
+            <param name="sourceNode">The original xml node</param>
+            <param name="diffgram">XmlReader for the XDL diffgram.</param>
+        </member>
+    </members>
+</doc>

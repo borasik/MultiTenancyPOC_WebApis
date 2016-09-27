@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="DH.PaymentAllocationService.InRuleService" CodeBehind="InRuleService.svc.cs" %>

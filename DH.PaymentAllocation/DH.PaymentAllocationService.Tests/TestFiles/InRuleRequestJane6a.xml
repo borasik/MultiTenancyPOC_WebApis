@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<InRuleRequest>
+  <RuleInfo>
+    <RuleName>UndirectedPaymentAllocation</RuleName>
+    <Caller>Cavion</Caller>
+    <RuleEvaluationDate>3/3/2015</RuleEvaluationDate>
+    <Filler></Filler>
+  </RuleInfo>
+  <RuleDataXML>
+    <![CDATA[     
+    <PaymentAmount>527.37</PaymentAmount>  
+    <LoanSet>
+      <Loan>    
+        <LoanNumber>1234567890</LoanNumber>
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>4075.00</PrincipalBalance>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>2234567890</LoanNumber>
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>  
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>9750.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince></IssuingProvince>
+        <IntegratedLoanType></IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>3234567890</LoanNumber>
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>12870.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>   
+        <IntegratedLoanType>Parent</IntegratedLoanType>  
+      </Loan>
+      <Loan>
+        <LoanNumber>323456789001</LoanNumber>      
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>  
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>7140.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>      
+      </Loan>
+      <Loan>
+        <LoanNumber>323456789002</LoanNumber>      
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>5730.00</PrincipalBalance>
+        <ParentAccountNumber>3234567890</ParentAccountNumber>     
+        <IssuingProvince>ON</IssuingProvince>
+        <IntegratedLoanType>Provincial</IntegratedLoanType>      
+      </Loan>
+      <Loan>
+        <LoanNumber>4234567890</LoanNumber>
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>20050.00</PrincipalBalance>
+        <ParentAccountNumber></ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Parent</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>423456789001</LoanNumber>
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>14280.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Federal</IntegratedLoanType>
+      </Loan>
+      <Loan>
+        <LoanNumber>423456789002</LoanNumber>
+        <LoanStatus>In Study</LoanStatus>
+        <ScheduledPaymentAmount>0</ScheduledPaymentAmount>
+        <AccruedInterest>0</AccruedInterest>
+        <PrincipalBalance>5770.00</PrincipalBalance>
+        <ParentAccountNumber>4234567890</ParentAccountNumber>
+        <IssuingProvince>NB</IssuingProvince>
+        <IntegratedLoanType>Provincial</IntegratedLoanType>
+      </Loan>
+    </LoanSet>
+    ]]>
+  </RuleDataXML>
+
+</InRuleRequest>
