@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
@@ -21,7 +22,7 @@ namespace MultiTenancyPOC.AuthenticationFilters
         public UserExtended UserExtended { get; set; }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
-        {          
+        {            
             IEnumerable<string> headers;
             var tenantExists = actionContext.Request.Headers.TryGetValues("tenant_type", out headers);
             if (tenantExists)
